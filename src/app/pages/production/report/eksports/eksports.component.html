@@ -1,0 +1,160 @@
+<!-- Start Breadcrumbs -->
+<!-- <app-breadcrumbs title="Invoice Details" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs> -->
+<!-- End Breadcrumbs -->
+
+<div class="row justify-content-center">
+    <div class="col-xxl-9">
+        <div class="card" id="demo" *ngIf="dataID">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-header border-bottom-dashed p-4">
+                        <div class="d-flex flex-wrap">
+                            <div class="flex-grow-1">
+                                <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-dark" alt="logo dark"
+                                    height="25">
+                                <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-light"
+                                    alt="logo light" height="25">
+                                    
+                                <div class="mt-sm-5 mt-4">
+                                    <h6 class="text-muted text-uppercase fw-semibold">Address</h6>
+                                    <p class="text-muted mb-1" id="address-details"> Jl. Siliwangi No.KM.28 43359 Kutajaya Jawa Barat · ~19 km</p>
+                                    <p class="text-muted mb-0" id="zip-code"><span>Zip-code:</span> 43358</p>
+                                </div>
+                            </div>
+                            <div class="flex-shrink-0 mt-sm-0 mt-3">
+                                <h6><span class="text-muted fw-normal">ID number:</span><span
+                                        id="legal-register-no">{{ dataID.id_history }}</span></h6>
+                                <h6><span class="text-muted fw-normal">Email:</span><span
+                                        id="email"> aio.co.id</span></h6>
+                                <h6><span class="text-muted fw-normal">Website:</span> <a
+                                        class="link-primary" target="_blank"
+                                        id="website"> www.aio.co.id</a></h6>
+                                <h6 class="mb-0"><span class="text-muted fw-normal">Contact No: </span><span
+                                        id="contact-no"> +62 266 733700</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card-header-->
+                </div>
+                <!--end col -->
+                <div class="col-lg-12">
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-lg-3 col-6">
+                                <p class="text-muted mb-2 text-uppercase fw-semibold">Invoice No</p>
+                                <h5 class="fs-14 mb-0">#VL<span id="invoice-no">{{dataID.id_history}}</span></h5>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-6">
+                                <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
+                                <h5 class="fs-14 mb-0"><span
+                                        id="invoice-date">{{dataID.date | date: 'dd/MM/yyyy'}}</span> <small
+                                        class="text-muted" id="invoice-time"> {{dataID.date | date: 'HH:mm'}}WIB</small>
+                                </h5>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-6">
+                                <p class="text-muted mb-2 text-uppercase fw-semibold">Payment Status</p>
+                                <span class="badge badge-soft-success fs-11" id="payment-status">closed</span>
+                            </div>
+                            <!--end col-->
+                            <div class="col-lg-3 col-6">
+                                <p class="text-muted mb-2 text-uppercase fw-semibold">Total Amount</p>
+                                <h5 class="fs-14 mb-0">pcs<span id="total-amount"> {{ finalFinish }}</span></h5>
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                    <!--end card-body-->
+                </div>
+                <!--end col-->
+                <div class="col-lg-12">
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="table table-borderless text-center table-nowrap align-middle mb-0">
+                                <thead>
+                                    <tr class="table-active">
+                                        <th scope="col" style="width: 50px;">NO</th>
+                                        <th scope="col">shift leaders</th>
+                                        <th scope="col">start</th>
+                                        <th scope="col">finish</th>
+                                        <th scope="col">result</th>
+                                        <th scope="col" class="text-end">update data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data; let i = index">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td class="text-start">
+                                            <span>{{ item.shift_leaders }}</span>
+                                        </td>
+                                        <td>{{ item.start }}</td>
+                                        <td>{{ item.finish }}</td>
+                                        <td>{{ item.result }}</td>
+                                        <td class="text-end">{{item.update_at | date:'dd/MM/yyyy HH:mm'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="border-top border-top-dashed mt-2">
+                            <table class="table table-borderless table-nowrap align-middle mb-0 ms-auto"
+                                style="width:250px">
+                                <tbody>
+                                    <tr>
+                                        <td>total production</td>
+                                        <td class="text-end">{{ finalFinish }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>average production value</td>
+                                        <td class="text-end">{{ averageResult }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>production hours</td>
+                                        <td class="text-end">{{ totalProductionHours }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+<!-- <table class="table table-borderless text-center table-nowrap align-middle mb-0">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Metric</th>
+            <th scope="col" class="text-end">Value</th>
+        </tr>
+    </thead>
+    <tbody id="metrics-list">
+        <tr>
+            <td>Total Production</td>
+            <td class="text-end">{{ finalFinish }}</td>
+        </tr>
+        <tr>
+            <td>Average Production Value</td>
+            <td class="text-end">{{ averageResult }}</td>
+        </tr>
+        <tr>
+            <td>Production Hours</td>
+            <td class="text-end">{{ totalProductionHours }}</td>
+        </tr>
+    </tbody>
+</table> -->
+                        </div>
+                        <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                            <a href="javascript:window.print()" class="btn btn-success"><i
+                                    class="ri-printer-line align-bottom me-1"></i> Print</a>
+                            <a href="javascript:void(0);" class="btn btn-primary"><i
+                                    class="ri-download-2-line align-bottom me-1"></i> Download</a>
+                        </div>
+                    </div>
+                    <!--end card-body-->
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end card-->
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->

@@ -1,0 +1,118 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Add" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="mb-5">
+                            <label for="problemInput" class="form-label">PROBLEM</label>
+                            <textarea class="form-control" id="problemInput" rows="5" placeholder="Enter Your Problem"
+                                #problemInput></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgProblem($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="mb-5">
+                            <label for="causeInput" class="form-label">CAUSE</label>
+                            <textarea class="form-control" id="causeInput" rows="5" placeholder="Enter Your Cause"
+                                #causeInput></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCause($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="mb-3">
+                            <label for="ca_paInput" class="form-label">CA _ PA</label>
+                            <textarea class="form-control" id="ca_paInput" rows="5" placeholder="Enter your Ca _ Pa"
+                                #ca_paInput></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapa($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-4">
+                        <button class="btn btn-primary w-50 p-2" style="width: max-content; padding: 5px;"
+                            (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="card-body">
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="mb-5">
+                            <label for="VertimeassageInput" class="form-label">PROBLEM</label>
+                            <textarea class="form-control" id="VertimeassageInput" rows="5" placeholder="Enter Your Problem"></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadIconSuccess($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="mb-5">
+                            <label for="VertimeassageInput" class="form-label">CAUSE</label>
+                            <textarea class="form-control" id="VertimeassageInput" rows="5" placeholder="Enter Your Cause"></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadIconSuccess($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="mb-3">
+                            <label for="VertimeassageInput" class="form-label">CA _ PA</label>
+                            <textarea class="form-control" id="VertimeassageInput" rows="5" placeholder="Enter your Ca _ Pa"></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadIconSuccess($event)" class="dropzone_sec"></dropzone>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-4">
+                        <button class="btn btn-primary w-50 p-2" style="width: max-content; padding: 5px;" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col col-6">
+                        <h4 class="text-center fa-font-awesome" >Problem</h4>
+                        <ckeditor [editor]="Editor" data="" [(ngModel)]="problem"></ckeditor>
+                        <dropzone class="dropzone_sec"></dropzone>
+                    </div>
+                    <div class="col col-6">
+                        <h4 class="text-center fa-font-awesome">Cause</h4>
+                        <ckeditor [editor]="Editor" data="" [(ngModel)]="cause"></ckeditor>
+                        <dropzone class="dropzone_sec"></dropzone>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <h4 class="text-center fa-font-awesome pt-5">CA - PA</h4>
+                        <ckeditor [editor]="Editor" data="" [(ngModel)]="ca_pa"></ckeditor>
+                        <dropzone class="dropzone_sec"></dropzone>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-4">
+                        <button class="btn btn-primary w-50 p-2" style="width: max-content; padding: 5px;" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

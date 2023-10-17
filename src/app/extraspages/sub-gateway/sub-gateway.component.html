@@ -1,0 +1,73 @@
+<section class="wrapper d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 mb-4" >
+                <!-- <div *ngFor="let event of eventsToday">
+                    <button style="background-color: rgb(103, 215, 255); width: max-content;"><h3><b>{{ event.title }}  ||  {{ event.location }}</b></h3></button>
+                </div> -->
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 mb-4 text-center">
+                <h2>AIO Production</h2>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
+                    <div class="card text-dark card-has-bg click-col" [style.backgroundImage]="'url(assets/images/subCategory/maintenance-img.png)'" >
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <!-- test -->
+                                <h4 class="card-title mt-0 ">
+                                    <a class="text-dark" class="stretched-link" (click)="onMaintClick();changeLayout('vertical')"></a>
+                                </h4>
+                            </div>
+                            <h1>Maintenance</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
+                    <div class="card text-dark card-has-bg click-col" [style.backgroundImage]="'url(assets/images/subCategory/production-img.png)'" > 
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <!-- test -->
+                                <h4 class="card-title mt-0 ">
+                                    <a class="text-dark" class="stretched-link" (click)="onProdClick();changeLayout('vertical')"></a>
+                                </h4>
+                            </div>
+                            <h1>Production</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
+                    <div class="card text-dark card-has-bg click-col" [style.backgroundImage]="'url(assets/images/subCategory/hcd-img.png)'" >
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <!-- test -->
+                                <h4 class="card-title mt-0 ">
+                                    <a class="text-dark" class="stretched-link" (click)="onMaintClick();changeLayout('vertical')"></a>
+                                </h4>
+                            </div>
+                            <h1>HCD</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 mb-3">
+                    <div class="card text-dark card-has-bg click-col" [style.backgroundImage]="'url(assets/images/subCategory/ykk-img.png)'" >
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <!-- test -->
+                                <h4 class="card-title mt-0 ">
+                                    <a class="text-dark" class="stretched-link" (click)="onProdClick();changeLayout('vertical')"></a>
+                                </h4>
+                            </div>
+                            <h1>YKK</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center text-align: center">
+                <div class="col text-center">
+                    <button class="btn btn-primary button" (click)="back()" style="width: 200px; text-align: center;">Kembali</button>
+                </div>
+            </div>
+    </div>
+</section>
