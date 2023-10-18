@@ -1,5 +1,5 @@
 <!-- Start Breadcrumbs -->
-<!-- <app-breadcrumbs title="Invoice Details" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs> -->
+<app-breadcrumbs title="Eksports" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
 <div class="row justify-content-center">
@@ -37,38 +37,7 @@
                     <!--end card-header-->
                 </div>
                 <!--end col -->
-                <div class="col-lg-12">
-                    <div class="card-body p-4">
-                        <div class="row g-3">
-                            <div class="col-lg-3 col-6">
-                                <p class="text-muted mb-2 text-uppercase fw-semibold">Invoice No</p>
-                                <h5 class="fs-14 mb-0">#VL<span id="invoice-no">{{dataID.id_history}}</span></h5>
-                            </div>
-                            <!--end col-->
-                            <div class="col-lg-3 col-6">
-                                <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
-                                <h5 class="fs-14 mb-0"><span
-                                        id="invoice-date">{{dataID.date | date: 'dd/MM/yyyy'}}</span> <small
-                                        class="text-muted" id="invoice-time"> {{dataID.date | date: 'HH:mm'}}WIB</small>
-                                </h5>
-                            </div>
-                            <!--end col-->
-                            <div class="col-lg-3 col-6">
-                                <p class="text-muted mb-2 text-uppercase fw-semibold">Payment Status</p>
-                                <span class="badge badge-soft-success fs-11" id="payment-status">closed</span>
-                            </div>
-                            <!--end col-->
-                            <div class="col-lg-3 col-6">
-                                <p class="text-muted mb-2 text-uppercase fw-semibold">Total Amount</p>
-                                <h5 class="fs-14 mb-0">pcs<span id="total-amount"> {{ finalFinish }}</span></h5>
-                            </div>
-                            <!--end col-->
-                        </div>
-                        <!--end row-->
-                    </div>
-                    <!--end card-body-->
-                </div>
-                <!--end col-->
+
                 <div class="col-lg-12">
                     <div class="card-body p-4">
                         <div class="table-responsive">
@@ -76,7 +45,7 @@
                                 <thead>
                                     <tr class="table-active">
                                         <th scope="col" style="width: 50px;">NO</th>
-                                        <th scope="col">shift leaders</th>
+                                        <th scope="col" class="text-start">shift leaders</th>
                                         <th scope="col">start</th>
                                         <th scope="col">finish</th>
                                         <th scope="col">result</th>
@@ -92,7 +61,7 @@
                                         <td>{{ item.start }}</td>
                                         <td>{{ item.finish }}</td>
                                         <td>{{ item.result }}</td>
-                                        <td class="text-end">{{item.update_at | date:'dd/MM/yyyy HH:mm'}}</td>
+                                        <td class="text-end">{{item.update_at | date:'HH:mm'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -103,17 +72,28 @@
                                 style="width:250px">
                                 <tbody>
                                     <tr>
-                                        <td>total production</td>
+                                        <td>Date</td>
+                                        <td class="text-end">{{ dataID.date |date: 'dd/MM/yyyy' }}
+                                            <br><span>{{dataID.date | date: 'HH:mm'}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lot Number</td>
+                                        <td class="text-end">{{ totalProductionHours }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity Production</td>
                                         <td class="text-end">{{ finalFinish }}</td>
                                     </tr>
                                     <tr>
-                                        <td>average production value</td>
-                                        <td class="text-end">{{ averageResult }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>production hours</td>
+                                        <td>Production Hours</td>
                                         <td class="text-end">{{ totalProductionHours }}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Line Efensiensi</td>
+                                        <td class="text-end">{{ totalProductionHours }}</td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                             

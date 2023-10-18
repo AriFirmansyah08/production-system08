@@ -22,11 +22,20 @@ export class EksportsComponent implements OnInit {
   finalFinish: number | undefined;
   averageResult: number | undefined;
   totalProductionHours: number | undefined;
-  
 
+  
+  breadCrumbItems!: Array<{}>;
   constructor(private route: ActivatedRoute, private apiservice: ApiService, private http: HttpClient) {}
 
   ngOnInit(): void {
+
+    this.breadCrumbItems = [
+      { label: 'Production', link: '/dashboard-prod' },
+      { label: 'Report', link: '/production/report'},
+      { label: 'Daily', link: '/production/daily/history'},
+      { label: 'Eksports', active: true },
+    ];
+    
     // Mengambil nilai 'id' dari parameter URL dan mengonversinya ke tipe number
   this.id = Number(this.route.snapshot.paramMap.get('id'));
 

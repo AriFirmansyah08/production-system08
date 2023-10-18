@@ -4,8 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 // Component Pages
 import { DashboardProdComponent } from './dashboard-prod/dashboard-prod.component';
 import { DashboardMaintComponent } from './dashboard-maint/dashboard-maint.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
+  {
+    path: "dashboard",
+    component: DashboardComponent
+  },
   {
     path: "dashboard-prod",
     component: DashboardProdComponent

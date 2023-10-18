@@ -4,9 +4,7 @@ import { EventService } from '../../core/services/event.service';
 
 //Logout
 import { AuthenticationService } from '../../core/services/auth.service';
-import { AuthfakeauthenticationService } from '../../core/services/authfake.service';
 import { Router } from '@angular/router';
-import { TokenStorageService } from '../../core/services/token-storage.service';
 
 // Language
 import { CookieService } from 'ngx-cookie-service';
@@ -16,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { CartModel } from './topbar.model';
 import { cartData } from './data';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-topbar',
@@ -36,6 +35,7 @@ export class TopbarComponent implements OnInit {
   cartData!: CartModel[];
   total = 0;
   cart_length: any = 0;
+  imageUrl: string =''
 
   constructor(@Inject(DOCUMENT) 
     private document: any, 
@@ -44,12 +44,12 @@ export class TopbarComponent implements OnInit {
     public _cookiesService: CookieService, 
     public translate: TranslateService, 
     private AuthenticationService: AuthenticationService, 
-    private router: Router, 
-    private TokenStorageService: TokenStorageService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     // this.userData = this.TokenStorageService.getUser();
     this.userData = this.AuthenticationService.getUserData();
+    this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
     this.element = document.documentElement;
 
     // Cookies wise Language set

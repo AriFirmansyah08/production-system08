@@ -31,7 +31,8 @@ export class AddComponent implements OnInit {
   fileName: any;
   img_problem : any = [];
   img_cause: any = [];
-  img_ca_pa:any = []
+  img_capa_currection:any = []
+  img_capa_currective:any = []
 
   constructor(
     private form: FormBuilder,
@@ -72,11 +73,18 @@ export class AddComponent implements OnInit {
       this.img_cause.push(this.fileName);
     }
   }
-  onUploadImgCapa(event: DropzoneEvent) {
+  onUploadImgCapaCurrention(event: DropzoneEvent) {
     this.dropzoneResponse = event[1];
     if (this.dropzoneResponse !== undefined) {
       this.fileName = this.dropzoneResponse.filename
-      this.img_ca_pa.push(this.fileName)
+      this.img_capa_currection.push(this.fileName)
+    }
+  }
+  onUploadImgCapaCurrentive(event: DropzoneEvent) {
+    this.dropzoneResponse = event[1];
+    if (this.dropzoneResponse !== undefined) {
+      this.fileName = this.dropzoneResponse.filename
+      this.img_capa_currective.push(this.fileName)
     }
   }
   
@@ -84,21 +92,21 @@ export class AddComponent implements OnInit {
     // Ambil nilai dari textarea dan simpan dalam variabel
     const problem = document.getElementById('problemInput') as HTMLTextAreaElement;
     const cause = document.getElementById('causeInput') as HTMLTextAreaElement;
-    const ca_pa = document.getElementById('ca_paInput') as HTMLTextAreaElement;
+    const capa_currection = document.getElementById('ca_pationInput') as HTMLTextAreaElement;
+    const capa_currective = document.getElementById('ca_pationInput') as HTMLTextAreaElement;
 
     // Generate the current date
     const currentDate = new Date();
-  
-    // Buat objek data yang akan dikirim ke API sesuai dengan struktur yang diperlukan oleh API Anda
-    console.log(this.img_ca_pa)
     const postData = {
       date: currentDate,
       problem: problem.value,
       cause: cause.value,
-      ca_pa: ca_pa.value,
+      capa_currection: capa_currection.value,
+      capa_currective: capa_currective.value,
       img_problem: this.img_problem.join(','),
       img_cause: this.img_cause.join(','),
-      img_ca_pa: this.img_ca_pa.join(','),
+      img_capa_currection: this.img_capa_currection.join(','),
+      img_capa_currective: this.img_capa_currective.join(','),
     };
   
     // Panggil metode layanan apiService untuk menyimpan data ke dalam tabel yang sesuai dalam database
@@ -110,7 +118,8 @@ export class AddComponent implements OnInit {
           // Lakukan tindakan setelah data berhasil disimpan, misalnya mengatur ulang nilai-nilai inputan
           problem.value = '';
           cause.value = '';
-          ca_pa.value = '';
+          capa_currection.value = '';
+          capa_currective.value = '';
           // Navigate to the "production/abnormal" page
           this.route.navigate(['/production/abnormal']);
         } else {

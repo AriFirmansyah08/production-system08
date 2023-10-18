@@ -41,9 +41,8 @@ export class DailyHistoryComponent {
   fuzzyTerm: any;
   dataterm: any;
   term: any;
-
+  selectedFilter: string = 'daily'; // Filter default: daily
   id: number | undefined;
-
   // Table data
   datatabel!: Observable<DailyReportModel[]>;
   total: Observable<number>;
@@ -118,29 +117,21 @@ export class DailyHistoryComponent {
   *
   */
 
-  onSearch(): void {
-    if (!this.searchTerm) {
-      this.filteredHistoryData = this.historyData;
-    } else {
-      this.filteredHistoryData = this.historyData.filter((data: { id_history: { toString: () => string | string[]; }; date: { toString: () => string | string[]; }; }) => {
-        return (
-          data.id_history.toString().includes(this.searchTerm) ||
-          data.date.toString().includes(this.searchTerm)
-        );
-      });
-    }
-  }
-
-  // onSort({ column, direction }: listSortEvent) {
-  //   // resetting other headers
-  //   this.headers.forEach(header => {
-  //     if (header.listsortable !== column) {
-  //       header.direction = '';
-  //     }
-  //   });
-
-  //   this.service.sortColumn = column;
-  //   this.service.sortDirection = direction;
+  // onSearch(): void {
+  //   if (!this.searchTerm) {
+  //     this.filteredHistoryData = this.historyData;
+  //   } else {
+  //     this.filteredHistoryData = this.historyData.filter((data: { id_history: number; date: Date; lot_number: Date; status: string }) => {
+  //       const searchString = this.searchTerm.toLowerCase();
+  //       const idMatch = data.id_history.toString().includes(searchString);
+  //       const dateMatch = data.date && data.date.toString().includes(searchString);
+  //       const lotNumberMatch = data.lot_number && data.lot_number.toString().includes(searchString);
+  //       const status = data.lot_number ? "closed" : "panding";
+  //       const statusMatch = status.toLowerCase().includes(searchString);
+  
+  //       return idMatch || dateMatch || lotNumberMatch || statusMatch;
+  //     });
+  //   }
   // }
 
   getAllHistory() {
@@ -185,6 +176,54 @@ export class DailyHistoryComponent {
       },
     });
   }  
+
+  setFilter(filter: string) {
+    this.selectedFilter = filter;
+    // Reset pencarian
+    this.searchTerm = '';
+    this.onSearch();
+  }
+
+  onSearch(): void {
+    if (!this.searchTerm) {
+      this.filteredHistoryData = this.historyData.filter((data: any) => this.checkFilter(data));
+    } else {
+      this.filteredHistoryData = this.historyData.filter((data: { id_history: { toString: () => string | string[]; }; }) => {
+        return (
+          data.id_history.toString().includes(this.searchTerm) &&
+          this.checkFilter(data)
+        );
+      });
+    }
+  }
+  
+  checkFilter(data: any): boolean {
+    if (this.selectedFilter === 'daily') {
+      return data.date && this.isDaily(data.date);
+    } else if (this.selectedFilter === 'weekly') {
+      return data.date && this.isWeekly(data.date);
+    } else if (this.selectedFilter === 'monthly') {
+      return data.date && this.isMonthly(data.date);
+    }
+    return true; // Return true if no filter is active
+  }
+  
+  isDaily(date: Date): boolean {
+    // Tambahkan logika untuk filter harian di sini
+    return true;
+  }
+  
+  isWeekly(date: Date): boolean {
+    // Tambahkan logika untuk filter mingguan di sini
+    return true;
+  }
+  
+  isMonthly(date: Date): boolean {
+    // Tambahkan logika untuk filter bulanan di sini
+    return true;
+  }
+  
+  
 
 }
 

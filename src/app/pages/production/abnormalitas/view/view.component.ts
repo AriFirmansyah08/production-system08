@@ -109,13 +109,14 @@ export class ViewComponent {
       console.log('data', this.abnormalData);
       console.log('filter', this.filteredAbnormalData);
     } else {
-      this.filteredAbnormalData = this.abnormalData.filter((data: { id_abnormal: string, date: string, problem: string, cause: string, ca_pa: string }) => {
+      this.filteredAbnormalData = this.abnormalData.filter((data: { id_abnormal: string, date: string, problem: string, cause: string, capa_currection: string, capa_currective: string }) => {
         return (
           data.id_abnormal.toString().includes(this.searchTerm) ||
           data.date.toString().includes(this.searchTerm) ||
           data.problem.toString().includes(this.searchTerm) ||
           data.cause.toString().includes(this.searchTerm) ||
-          data.ca_pa.toString().includes(this.searchTerm)
+          data.capa_currection.toString().includes(this.searchTerm) ||
+          data.capa_currective.toString().includes(this.searchTerm)
         );
       });
     }

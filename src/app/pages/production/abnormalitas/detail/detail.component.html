@@ -10,31 +10,31 @@
                     <div class="card-header border-bottom-dashed p-4">
                         <div class="d-flex flex-wrap">
                             <div class="flex-grow-1">
-                                <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-dark" alt="logo dark"
-                                    height="25">
+                                <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-dark"
+                                    alt="logo dark" height="25">
                                 <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-light"
                                     alt="logo light" height="25">
-                                    
+
                                 <div class="mt-sm-5 mt-4">
                                     <h6 class="text-muted text-uppercase fw-semibold">Address</h6>
-                                    <p class="text-muted mb-1" id="address-details"> Jl. Siliwangi No.KM.28 43359 Kutajaya Jawa Barat · ~19 km</p>
+                                    <p class="text-muted mb-1" id="address-details"> Jl. Siliwangi No.KM.28 43359
+                                        Kutajaya Jawa Barat · ~19 km</p>
                                     <p class="text-muted mb-0" id="zip-code"><span>Zip-code:</span> 43358</p>
                                 </div>
                             </div>
                             <div class="flex-shrink-0 mt-sm-0 mt-3">
                                 <h6><span class="text-muted fw-normal">ID number:</span><span
                                         id="legal-register-no">{{ data.id_abnormal }}</span></h6>
-                                <h6><span class="text-muted fw-normal">Email:</span><span
-                                        id="email"> aio.co.id</span></h6>
-                                <h6><span class="text-muted fw-normal">Website:</span> <a
-                                        class="link-primary" target="_blank"
-                                        id="website"> www.aio.co.id</a></h6>
+                                <h6><span class="text-muted fw-normal">Email:</span><span id="email"> aio.co.id</span>
+                                </h6>
+                                <h6><span class="text-muted fw-normal">Website:</span> <a class="link-primary"
+                                        target="_blank" id="website"> www.aio.co.id</a></h6>
                                 <h6 class="mb-0"><span class="text-muted fw-normal">Contact No: </span><span
                                         id="contact-no"> +62 266 733700</span></h6>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="col-lg-12">
                     <div class="card-body p-4">
@@ -43,14 +43,15 @@
                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Invoice No</p>
                                 <h5 class="fs-14 mb-0">#AB<span id="invoice-no">000{{ data.id_abnormal }}</span></h5>
                             </div>
-                            
+
                             <div class="col-lg-3 col-6">
                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
-                                <h5 class="fs-14 mb-0"><span id="invoice-date">{{ data.date | date: 'dd/MM/yyyy' }}</span></h5>
+                                <h5 class="fs-14 mb-0"><span
+                                        id="invoice-date">{{ data.date | date: 'dd/MM/yyyy' }}</span></h5>
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -70,30 +71,41 @@
                                     </tr>
                                     <tr>
                                         <th>
-                                            <img *ngFor="let item of data.img_problem" class="square-image" [src]="imageUrl + item" alt="Image Problem" />
+                                            <img *ngFor="let item of data.img_problem" class="square-image"
+                                                [src]="imageUrl + item" alt="Image Problem" />
                                         </th>
                                         <th>
-                                            <img *ngFor="let item of data.img_cause" class="square-image" [src]="imageUrl + item" alt="Image Cause" />
+                                            <img *ngFor="let item of data.img_cause" class="square-image"
+                                                [src]="imageUrl + item" alt="Image Cause" />
                                         </th>
                                     </tr>
                                 </tbody>
-                            </table><!--end table-->
+                            </table>
+                            <!--end table-->
                             <table class="table table-borderless text-center table-nowrap align-middle mb-0">
                                 <thead class="col col-12">
                                     <tr class="table-active col-12">
-                                        <th scope="col col-12">CA_PA <br>
-                                        CA_PA </th>
+                                        <th scope="col col-6"> CA_PA Currention</th>
+                                        <th scope="col col-6"> CA_PA Currentive</th>
                                     </tr>
                                 </thead>
                                 <tbody id="products-list">
                                     <tr>
                                         <th class="text-start">
-                                            <span class="fw-medium">{{data.ca_pa}}</span>
+                                            <span class="fw-medium">{{data.capa_currection}}</span>
+                                        </th>
+                                        <th class="text-start">
+                                            <span class="fw-medium">{{data.capa_currective}}</span>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th>
-                                            <img *ngFor="let item of data.img_ca_pa" class="square-image" [src]="imageUrl + item" alt="Image Ca/PA" />
+                                            <img *ngFor="let item of data.img_capa_currection" class="square-image"
+                                                [src]="imageUrl + item" alt="Image Ca/PA" />
+                                        </th>
+                                        <th>
+                                            <img *ngFor="let item of data.img_capa_currective" class="square-image"
+                                                [src]="imageUrl + item" alt="Image Ca/PA" />
                                         </th>
                                     </tr>
                                 </tbody>
@@ -107,8 +119,10 @@
                         </div>
                     </div>
                     <!--end card-body-->
-                </div><!--end col-->
-            </div><!--end row-->
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
         </div>
         <!--end card-->
     </div>

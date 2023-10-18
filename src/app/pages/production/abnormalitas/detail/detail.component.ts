@@ -42,7 +42,8 @@ export class DetailComponent implements OnInit {
         this.data = response.data[0]
         this.data.img_problem = this.data.img_problem.split(',');
         this.data.img_cause = this.data.img_cause.split(',');
-        this.data.img_ca_pa = this.data.img_ca_pa.split(',');
+        this.data.img_capa_currection = this.data.img_capa_currection.split(',');
+        this.data.img_capa_currective = this.data.img_capa_currective.split(',');
       }, error => {
         console.error('Error:', error);
       });

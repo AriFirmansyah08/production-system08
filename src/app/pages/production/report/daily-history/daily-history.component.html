@@ -13,7 +13,16 @@
                                 <a href="production/report/daily" class="btn btn-primary">
                                     <i class="ri-back-line align-bottom me-1"></i>
                                     kembali </a>
+
                             </div>
+                            <div class="col-sm-auto">
+                                <div class="btn-group" role="group" aria-label="Filter Options">
+                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'daily'}" (click)="setFilter('daily')">Daily</button>
+                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'weekly'}" (click)="setFilter('weekly')">Weekly</button>
+                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'monthly'}" (click)="setFilter('monthly')">Monthly</button>
+                                </div>
+                              </div>
+                              
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
@@ -35,7 +44,10 @@
                                     <th class="sort">ID Reset
                                     </th>
                                     <th class="sort">Date</th>
-                                    <th class="sort">Action</th>
+                                    <th class="sort">time</th>
+                                    <th class="sort">Lot_number</th>
+                                    <th class="sort">status</th>
+                                    <th class="sort text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,13 +60,33 @@
                                         </ngb-highlight>
                                     </td>
                                     <td>
-                                        <ngb-highlight [result]="data.date | date:'dd/MM/yyyy HH:mm'" [term]="service.searchTerm">                                      </ngb-highlight>
+                                        <ngb-highlight [result]="data.date | date:'dd/MM/yyyy'"
+                                            [term]="service.searchTerm"> </ngb-highlight>
                                     </td>
                                     <td>
-
-                                        <button type="button" class="btn btn-danger"
+                                        <ngb-highlight [result]="data.date | date:'HH:mm'" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight [result]="data.lot_number | date:'dd-MM-yyyy'" [term]="service.searchTerm">
+                                        </ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ng-container *ngIf="data.lot_number; else notReady">
+                                            <ngb-highlight [result]="data.status" [term]="service.searchTerm">
+                                            </ngb-highlight>
+                                            <span class="badge bg-success">closed</span>
+                                        </ng-container>
+                                        <ng-template #notReady>
+                                            <ngb-highlight [result]="data.status" [term]="service.searchTerm">
+                                            </ngb-highlight>
+                                            <span class="badge bg-danger">panding</span>
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-danger text-center"
                                             (click)="getByIdHistory(data.id_history)">
-                                            <i class="ri-printer-line align-bottom me-1"></i>Eksport
+                                            <i class="ri-printer-line align-bottom me-1 text-center"></i>Eksport
                                         </button>
                                     </td>
                                 </tr>

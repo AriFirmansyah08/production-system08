@@ -23,6 +23,7 @@ import { TeamComponent } from './landing/index/team/team.component';
 import { ContactComponent } from './landing/index/contact/contact.component';
 import { FooterComponent } from './landing/index/footer/footer.component';
 import { ScrollspyDirective } from './scrollspy.directive';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -43,8 +44,8 @@ import { ScrollspyDirective } from './scrollspy.directive';
     ContactComponent,
     FooterComponent,
     ScrollspyDirective,
+ 
 
-   
   ],
   imports: [
     CommonModule,
@@ -53,7 +54,8 @@ import { ScrollspyDirective } from './scrollspy.directive';
     NgbDropdownModule,
     NgxUsefulSwiperModule,
     CountToModule,
-    NgxUsefulSwiperModule 
+    NgxUsefulSwiperModule,
+    RouterModule,
   ],
   exports: [
     BreadcrumbsComponent,

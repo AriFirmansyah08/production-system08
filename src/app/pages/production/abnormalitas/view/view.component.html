@@ -43,10 +43,12 @@
                                     <th scope="col" style="width: 50px;">
                                         NO
                                     </th>
-                                    <th>Date - Time</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                     <th>Problem</th>
                                     <th>Cause</th>
-                                    <th>CA - PA</th>
+                                    <th>CA_PA Currection</th>
+                                    <th>CA_PA Currective</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,7 +58,10 @@
                                     <ng-container *ngIf="i >= (page - 1) * pageSize && i < page * pageSize">
                                         <td>{{ i + 1 }}</td>
                                         <td>
-                                            <div [innerHTML]="data.date | date: 'dd/MM/yyyy HH:mm'"></div>
+                                            <div [innerHTML]="data.date | date: 'dd-MM-yyyy'"></div>
+                                        </td>
+                                        <td>
+                                            <div [innerHTML]="data.date | date: 'HH:mm'"></div>
                                         </td>
                                         <td>
                                             <div [innerHTML]="data.problem | sliceWords:3"></div>
@@ -65,7 +70,10 @@
                                             <div [innerHTML]="data.cause | sliceWords:3"></div>
                                         </td>
                                         <td>
-                                            <div [innerHTML]="data.ca_pa | sliceWords:3"></div>
+                                            <div [innerHTML]="data.capa_currection | sliceWords:3"></div>
+                                        </td>
+                                        <td>
+                                            <div [innerHTML]="data.capa_currective | sliceWords:3"></div>
                                         </td>
                                         <td>
                                             <div class="dropdown" ngbDropdown>
@@ -91,24 +99,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- <div class="row justify-content-md-between align-items-md-center d-print-none">
-                        <div class="col col-sm-6">
-                            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
-                              Showing
-                              {{(page - 1) * pageSize + 1}} -
-                              {{Math.min(page * pageSize, totalRecords)}} of {{totalRecords}}
-                              entries
-                            </div>
-                          </div>
-                        
-                        <div class="col col-sm-6">
-                            <div class="text-sm-right float-end listjs-pagination">
-                                <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize"
-                                    [maxSize]="2" [ellipses]="false"></ngb-pagination>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="row justify-content-md-between align-items-md-center d-print-none">
                         <div class="col col-sm-6">
                             <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
