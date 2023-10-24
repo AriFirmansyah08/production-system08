@@ -49,7 +49,8 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): void {
     // this.userData = this.TokenStorageService.getUser();
     this.userData = this.AuthenticationService.getUserData();
-    this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
+    // this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
+    this.imageUrl = `${environment.API_URL}${environment.getImage_user}${this.userData.photo}`
     this.element = document.documentElement;
 
     // Cookies wise Language set
@@ -115,10 +116,7 @@ export class TopbarComponent implements OnInit {
       }
     }
   }
-
-  /**
-  * Topbar Light-Dark Mode Change
-  */
+  //mode dark and light
   changeMode(mode: string) {
     this.mode = mode;
     this.eventService.broadcast('changeMode', mode);

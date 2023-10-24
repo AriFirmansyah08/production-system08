@@ -22,6 +22,7 @@ import { LayoutCategoryModule } from './layout-category/layout-category.module';
 
 import { SliceWordsPipe } from './slice-words.pipe';
 import { CommonModule } from '@angular/common';
+import { HomeModule } from './pages/home/home.module';
 
 
 export function createTranslateLoader(http: HttpClient): any {
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     LayoutCategoryModule,
     PagesModule,
+    HomeModule,
 
 
   ],

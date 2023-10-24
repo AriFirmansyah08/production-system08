@@ -19,12 +19,14 @@ export class EksportsComponent implements OnInit {
   DataById: any;
   dataID: any;
   data: any;
-  finalFinish: number | undefined;
+  finalFinish: any;
   averageResult: number | undefined;
   totalProductionHours: number | undefined;
 
   
   breadCrumbItems!: Array<{}>;
+  lineEfficiency: any;
+  lineEfficiency_: any;
   constructor(private route: ActivatedRoute, private apiservice: ApiService, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -32,15 +34,10 @@ export class EksportsComponent implements OnInit {
     this.breadCrumbItems = [
       { label: 'Production', link: '/dashboard-prod' },
       { label: 'Report', link: '/production/report'},
-      { label: 'Daily', link: '/production/daily/history'},
+      { label: 'Daily', link: 'production/report/daily/history'},
       { label: 'Eksports', active: true },
     ];
-    
-    // Mengambil nilai 'id' dari parameter URL dan mengonversinya ke tipe number
   this.id = Number(this.route.snapshot.paramMap.get('id'));
-
-
-  // Menggunakan nilai 'id' dalam URL API
   const apiUrl = `${environment.API_URL}master/history/${this.id}`;
 
   this.http.get(apiUrl).subscribe((response: any) => {
@@ -52,7 +49,6 @@ export class EksportsComponent implements OnInit {
       const id = params['id'];
       if (id) {
         this.apiservice.getByIdHistory(id).subscribe((res: any) => {
-          // Proses data yang diterima dari API
         });
       }
     });
@@ -68,9 +64,8 @@ export class EksportsComponent implements OnInit {
         console.error('Error:', error);
       });
     });
-
-    
   }  
+
 calculateStatistics(): void {
   if (this.data && this.data.length > 0) {
     // Mengambil nilai finish dari entri terakhir dalam array data
@@ -86,35 +81,24 @@ calculateStatistics(): void {
     // Menghitung total jam produksi (totalProductionHours)
     this.totalProductionHours = this.calculateTotalProductionHours(this.data);
     console.log('data total jam', this.totalProductionHours);
+
+    // Menambahkan perhitungan efisiensi garis
+    const machineSpeed = 530; // Ganti dengan nilai kecepatan mesin yang sesuai
+    this.lineEfficiency = this.calculateLineEfficiency(this.totalProductionHours, machineSpeed);
+    console.log('line efisiensi', this.lineEfficiency);
   }
 }
-
-// calculateTotalProductionHours(data: any[]): number {
-//   let totalHours = 1; // Mulai dari 1 jam.
-
-//   for (let i = 0; i < data.length; i++) {
-//     if (i < data.length - 1) {
-//       const startTimeParts = data[i].production_hours.split(':');
-//       const endTimeParts = data[i + 1].production_hours.split(':');
-
-//       if (startTimeParts.length === 3 && endTimeParts.length === 3) {
-//         const startHour = parseInt(startTimeParts[0]);
-//         const startMinute = parseInt(startTimeParts[1]);
-//         const startSecond = parseInt(startTimeParts[2]);
-//         const endHour = parseInt(endTimeParts[0]);
-//         const endMinute = parseInt(endTimeParts[1]);
-//         const endSecond = parseInt(endTimeParts[2]);
-
-//         const hoursDiff = (endHour - startHour) + (endMinute - startMinute) / 60 + (endSecond - startSecond) / 3600;
-//         totalHours += hoursDiff;
-//       }
-//     }
-//   }
-//   return totalHours;
-// }
 
 calculateTotalProductionHours(data: any[]): number {
   return data.length;
 }
 
+calculateLineEfficiency(totalProductionHours: number, machineSpeed: number): number {
+  // Konversi total jam produksi ke dalam menit
+  const totalProductionMinutes = totalProductionHours * 60;
+  // Hitung efisiensi garis
+  const lineEfficiency = (totalProductionMinutes * (machineSpeed));
+  
+  return lineEfficiency;
+}
 }

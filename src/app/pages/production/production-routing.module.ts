@@ -19,6 +19,7 @@ const routes: Routes = [
   {
     path: 'abnormal', loadChildren: () => import('./abnormalitas/abnormalitas.module').then(m => m.AbnormalitasModule)
   },
+  
 ];
 
 @NgModule({

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
 import { environment } from 'src/environments/environment';
 
+
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -21,6 +23,9 @@ export class DetailComponent implements OnInit {
 
   id: number | undefined;
   data: any;
+  images: any;
+  ctx:any;
+  
   
 
   ngOnInit(): void {
@@ -47,7 +52,7 @@ export class DetailComponent implements OnInit {
       }, error => {
         console.error('Error:', error);
       });
-    });
+    }); 
   }
 }
 

@@ -10,19 +10,19 @@
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
                             <div class="d-flex gap-1">
+                                <select class="mx-3 py-2" id="pageSizeDropdown" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                  </select>
                                 <a href="production/report/daily" class="btn btn-primary">
                                     <i class="ri-back-line align-bottom me-1"></i>
                                     kembali </a>
-
                             </div>
-                            <div class="col-sm-auto">
-                                <div class="btn-group" role="group" aria-label="Filter Options">
-                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'daily'}" (click)="setFilter('daily')">Daily</button>
-                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'weekly'}" (click)="setFilter('weekly')">Weekly</button>
-                                  <button type="button" class="btn btn-primary" [ngClass]="{'active': selectedFilter === 'monthly'}" (click)="setFilter('monthly')">Monthly</button>
-                                </div>
-                              </div>
-                              
                         </div>
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
@@ -51,34 +51,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of filteredHistoryData" id="lj_{{data.id}}">
+                                <!-- <tr *ngFor="let data of filteredHistoryData" id="lj_{{data.id}}"> -->
+                                    <tr *ngFor="let data of filteredHistoryData.slice((page - 1) * pageSize, page * pageSize)">
+                                        <!-- Tampilkan data di sini -->
                                     <th scope="row">
                                         <!-- ///number -->
                                     </th>
                                     <td>
-                                        <ngb-highlight [result]="data.id_history" [term]="service.searchTerm">
+                                        <ngb-highlight [result]="data.id_history">
                                         </ngb-highlight>
                                     </td>
                                     <td>
-                                        <ngb-highlight [result]="data.date | date:'dd/MM/yyyy'"
-                                            [term]="service.searchTerm"> </ngb-highlight>
+                                        <ngb-highlight [result]="data.date | date: 'dd-MM-yyyy'"
+                                        > </ngb-highlight>
                                     </td>
                                     <td>
-                                        <ngb-highlight [result]="data.date | date:'HH:mm'" [term]="service.searchTerm">
+                                        <ngb-highlight [result]="data.date | date:'HH:mm'">
                                         </ngb-highlight>
                                     </td>
                                     <td>
-                                        <ngb-highlight [result]="data.lot_number | date:'dd-MM-yyyy'" [term]="service.searchTerm">
+                                        <ngb-highlight [result]="data.lot_number">
                                         </ngb-highlight>
                                     </td>
                                     <td>
                                         <ng-container *ngIf="data.lot_number; else notReady">
-                                            <ngb-highlight [result]="data.status" [term]="service.searchTerm">
+                                            <ngb-highlight [result]="data.status">
                                             </ngb-highlight>
                                             <span class="badge bg-success">closed</span>
                                         </ng-container>
                                         <ng-template #notReady>
-                                            <ngb-highlight [result]="data.status" [term]="service.searchTerm">
+                                            <ngb-highlight [result]="data.status">
                                             </ngb-highlight>
                                             <span class="badge bg-danger">panding</span>
                                         </ng-template>
@@ -90,28 +92,27 @@
                                         </button>
                                     </td>
                                 </tr>
+                                <tr *ngIf="filteredHistoryData.length === 0">
+                                    <td colspan="7" class="text-center">No data available.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="row justify-content-md-between align-items-md-center">
-                        <div class="col col-sm-6">
-                            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
-                                Showing
-                                {{service.startIndex}} to
-                                {{service.endIndex}} of {{service.totalRecords}}
-                                entries
+                        <div class="row justify-content-md-between align-items-md-center d-print-none">
+                            <div class="col col-sm-6">
+                                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                                    {{ getShowingText() }} of {{ totalRecords }} entries
+                                </div>
+                            </div>
+                        
+                            <div class="col col-sm-6">
+                                <div class="text-sm-right float-end listjs-pagination">
+                                    <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [maxSize]="2" [ellipses]="false"></ngb-pagination>
+                                </div>
                             </div>
                         </div>
-                        <!-- Pagination -->
-                        <div class="col col-sm-6">
-                            <div class="text-sm-right float-end listjs-pagination">
-                                <ngb-pagination [collectionSize]="(total | async)!" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
-                                </ngb-pagination>
-                            </div>
-                        </div>
-                        <!-- End Pagination -->
                     </div>
                 </div>
             </div><!-- end card -->

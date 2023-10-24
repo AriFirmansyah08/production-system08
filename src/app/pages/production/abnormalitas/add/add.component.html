@@ -9,25 +9,27 @@
                 <div class="row">
                     <div class="col col-6">
                         <div class="mb-5 text-center">
-                            <label for="problemInput" class="form-label text-center bg-danger">PROBLEM</label>
+                            <label for="problemInput" class="form-label text-center "><h5><b><u>PROBLEM</u></b></h5></label>
                             <textarea class="form-control" id="problemInput" rows="5" placeholder="Enter Your Problem"
                                 #problemInput></textarea>
                             <dropzone [config]="dropzoneConfig" (success)="onUploadImgProblem($event)" class="dropzone_sec"></dropzone>
+                            <!-- <button *ngIf="dropzoneResponse !== undefined" class="btn btn-sm btn-outline-danger" (click)="deleteImageProblem()">Remove</button> -->
                         </div>
                     </div>
                     <div class="col col-6">
                         <div class="mb-5 text-center">
-                            <label for="causeInput" class="form-label text-center bg-info">CAUSE</label>
+                            <label for="causeInput" class="form-label text-center"><h5><b><u>CAUSE</u></b></h5></label>
                             <textarea class="form-control" id="causeInput" rows="5" placeholder="Enter Your Cause"
                                 #causeInput></textarea>
                             <dropzone [config]="dropzoneConfig" (success)="onUploadImgCause($event)" class="dropzone_sec"></dropzone>
                         </div>
                     </div>
                 </div>
+                <input class="form-control rounded-start ps-2 input" placeholder="" tabindex="0" type="text">
                 <div class="row">
                     <div class="col col-6">
                         <div class="mb-3 text-center">
-                            <label for="ca_paInput" class="form-label text-center">CA_PA Currection</label>
+                            <label for="ca_paInput" class="form-label text-center"><h5><b><u>CA_PA Currection</u></b></h5></label>
                             <textarea class="form-control" id="ca_pationInput" rows="5" placeholder="Enter your Ca_Pa Currection"
                                 #ca_paInput></textarea>
                             <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrention($event)" class="dropzone_sec"></dropzone>
@@ -35,7 +37,7 @@
                     </div>
                     <div class="col col-6">
                         <div class="mb-3 text-center">
-                            <label for="ca_paInput" class="form-label text-center">CA_PA Cureective</label>
+                            <label for="ca_paInput" class="form-label text-center"><h5><b><u>CA_PA Cureective</u></b></h5></label>
                             <textarea class="form-control" id="ca_pativeInput" rows="5" placeholder="Enter your CaPa currective"
                                 #ca_paInput></textarea>
                             <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrentive($event)" class="dropzone_sec"></dropzone>

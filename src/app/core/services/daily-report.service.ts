@@ -4,9 +4,6 @@ import {Injectable, PipeTransform} from '@angular/core';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
 // import {ListJs} from '../helpers/data-daily';
-import {DecimalPipe} from '@angular/common';
-import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
-import { SortColumn, SortDirection } from 'src/app/pages/production/report/daily-report/daily-report-sortable.directive';
 import { DailyReportModel } from '../models/daily-reports';
 
 interface SearchResult {
@@ -18,8 +15,6 @@ interface State {
   page: number;
   pageSize: number;
   searchTerm: string;
-  sortColumn: SortColumn;
-  sortDirection: SortDirection;
   startIndex: number;
   endIndex: number;
   totalRecords: number;
@@ -58,8 +53,6 @@ export class DailyReportService {
     page: 1,
     pageSize: 8,
     searchTerm: '',
-    sortColumn: '',
-    sortDirection: '',
     startIndex: 0,
     endIndex: 9,
     totalRecords: 0
@@ -81,8 +74,6 @@ export class DailyReportService {
   set page(page: number) { this._set({page}); }
   set pageSize(pageSize: number) { this._set({pageSize}); }
   set searchTerm(searchTerm: string) { this._set({searchTerm}); }
-  set sortColumn(sortColumn: SortColumn) { this._set({sortColumn}); }
-  set sortDirection(sortDirection: SortDirection) { this._set({sortDirection}); }
   set startIndex(startIndex: number) { this._set({ startIndex }); }
   set endIndex(endIndex: number) { this._set({ endIndex }); }
   set totalRecords(totalRecords: number) { this._set({ totalRecords }); }
@@ -91,17 +82,4 @@ export class DailyReportService {
     Object.assign(this._state, patch);
     this._search$.next();
   }
-
-  // private _search(): Observable<SearchResult> {
-  //   const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
-
-  //   // 1. sort
-  //   let countries = sort(this.dailyData, sortColumn, sortDirection);
-
-  //   // 2. filter
-  //   countries = countries.filter(country => matches(country, searchTerm, this.pipe));
-  //   const total = countries.length;
-
-  //   3. paginate
-  
 }

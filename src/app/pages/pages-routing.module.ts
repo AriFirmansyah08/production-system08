@@ -27,6 +27,10 @@ const routes: Routes = [
     {
       path: 'production', loadChildren: () => import('./production/production.module').then(m => m.ProductionModule)
     },
+    {
+      path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    },
+    
 ];
 
 @NgModule({

@@ -38,5 +38,21 @@
     margin: 0;
 }
 
+.image-table {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+/* Set lebar tabel agar sesuai dengan halaman A4 */
+.image-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Atur pemisahan elemen pada halaman cetak */
+.image-table tr, .image-table th, .image-table td {
+  page-break-inside: avoid;
+}
+
+
   
   

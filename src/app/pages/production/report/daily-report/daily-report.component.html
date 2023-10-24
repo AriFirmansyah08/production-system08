@@ -17,21 +17,11 @@
                 <button type="button" class="btn btn-success add-btn" routerLink="history"><i class="ri-history-line align-bottom me-1"></i>
                   History
                 </button>
-                    <a class="btn btn-danger" (click)="onReset()"><i
+                <!-- (click)="editModal(contentEdit,data)" -->
+                    <a class="btn btn-danger" (click)="ModalReset(contentLot)" ><i
+                      
                       class=" ri-inbox-archive-line align-bottom me-1"></i> reset 
                     </a>
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="d-flex justify-content-sm-end d-print-none">
-                <div class="search-box ms-2">
-                  <input type="text" class="form-control search" placeholder="Search..."
-                    [(ngModel)]="service.searchTerm">
-                  <i class="ri-search-line search-icon"></i>
-                  <!-- <input type="text" class="form-control mb-2" 
-                                        placeholder="Search" [(ngModel)]="searchKeyword"
-                                (input)="applyFilter()"> -->
-                </div>
               </div>
             </div>
           </div>
@@ -56,22 +46,22 @@
                     {{ i + 1 }}
                   </th>
                   <td>
-                    <ngb-highlight [result]="data.shift_leaders" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.shift_leaders"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.production_hours" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.production_hours"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.start" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.start"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.finish" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.finish"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.result" [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.result"></ngb-highlight>
                   </td>
                   <td>
-                    <ngb-highlight [result]="data.update_at | date: 'dd/MM/yyyy - HH:mm' " [term]="service.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="data.update_at | date: 'dd/MM/yyyy - HH:mm' "></ngb-highlight>
                   </td>
                   <td>
                     <div class="edit d-print-none">
@@ -82,7 +72,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr *ngIf="dailyData.length === 0">
+                <tr *ngIf="dailyData?.length == 0">
                   <td colspan="8" class="text-center">No data available.</td>
                 </tr>
               </tbody>
@@ -91,43 +81,13 @@
           </div>
 
           <div class="row justify-content-md-between align-items-md-center d-print-none">
-            <div class="col col-sm-6">
-              <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
-                Showing
-                {{service.startIndex}} to
-                {{service.endIndex}} of {{service.totalRecords}}
-                entries
-              </div>
-            </div>
-            <!-- Pagination -->
 
-            <div class="col col-sm-6 d-print-none">
-              <div class="text-sm-right float-end listjs-pagination">
-                <ngb-pagination [collectionSize]="(total | async)!" [(page)]="service.page"
-                  [pageSize]="service.pageSize">
-                </ngb-pagination>
-              </div>
-            </div>
-
-            <!-- <div class="col col-sm-6">
-              <div class="text-sm-right float-end gridjs-pagination">
-                  <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                      [pageSize]="service.pageSize">
-                  </ngb-pagination>
-              </div>
-          </div> -->
-
-            <!-- End Pagination -->
           </div>
         </div>
-      </div><!-- end card -->
+      </div>
     </div>
-    <!-- end col -->
   </div>
-  <!-- end col -->
 </div>
-<!-- end row -->
-
 
 <!-- Add ListJs Data -->
 <ng-template #content role="document" let-modal>
@@ -201,7 +161,37 @@
       <div class="hstack gap-2 justify-content-end">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal"
           (click)="modal.close('Close click')">Close</button>
-        <button type="submit" (click)="onUpdate()" class="btn btn-primary" id="add-btn">Submit</button>
+        <button type="submit"  class="btn btn-primary" id="add-btn">Submit</button>
+        <!-- (click)="onUpdate()" berfungsi dengan baik
+        di nonaktifkan sementara-->
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<!-- Modal Lot Number-->
+<ng-template #contentLot role="document" let-modal>
+  <div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel">LOT Number</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="ReportFormReset" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+            <!-- <input #lotNumberInput class="form-control flatpickr-input" [(ngModel)]="dataonReset" type="text" mwlFlatpickr [altInput]="true" 
+       [convertModelValue]="true" formControlName="lot_number"> -->
+       <input type="text" class="form-control" id="placeholderInput" [(ngModel)]="dataonReset"formControlName="lot_number" placeholder="yours volue">
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="hstack gap-2 justify-content-end">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+          (click)="modal.close('Close click')">Close</button>
+        <button type="submit" (click)="onReset()" class="btn btn-primary" id="add-btn">Submit</button>
       </div>
     </div>
   </form>

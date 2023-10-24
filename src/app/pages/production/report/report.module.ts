@@ -16,7 +16,6 @@ import { DailyHistoryComponent } from './daily-history/daily-history.component';
 // Load Icon
 import { defineElement } from 'lord-icon-element';
 import lottie from 'lottie-web';
-import { NgDailySortableHeader } from './daily-report/daily-report-sortable.directive';
 import { DatePipe } from '@angular/common';
 import { EksportsComponent } from './eksports/eksports.component';
 
@@ -27,7 +26,6 @@ import { EksportsComponent } from './eksports/eksports.component';
         DailyReportComponent,
         WeklyReportComponent,
         MontlyReportComponent,
-        NgDailySortableHeader,
         DailyHistoryComponent,
         EksportsComponent,
         

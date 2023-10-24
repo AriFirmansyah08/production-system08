@@ -1,11 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// Ck Editer
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { data } from 'jquery';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { DropzoneEvent } from 'ngx-dropzone-wrapper/lib/dropzone.interfaces';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -35,7 +31,6 @@ export class AddComponent implements OnInit {
   img_capa_currective:any = []
 
   constructor(
-    private form: FormBuilder,
     private apiService: ApiService,
     private route: Router) { }
 
@@ -133,5 +128,48 @@ export class AddComponent implements OnInit {
       }
     });
   }
+
+  deleteImage(): void {
+    // Periksa apakah ada gambar yang diunggah
+    if (this.dropzoneResponse) {
+      // Di sini Anda dapat menentukan logika untuk menghapus gambar yang diunggah
+      // Misalnya, jika Anda menyimpan informasi gambar dalam properti `dropzoneResponse`, Anda dapat menghapusnya:
+      this.dropzoneResponse = undefined;
+
+      // Selanjutnya, Anda perlu menambahkan logika untuk menghapus gambar fisik di server sesuai kebutuhan aplikasi Anda.
+    }
+  }
+
+  deleteImageProblem(): void {
+    // Periksa apakah ada gambar yang diunggah pada img_problem atau dalam dropzoneResponse
+    if (this.img_problem || this.dropzoneResponse) {
+      let imageToDelete: string | undefined;
+
+      // Ambil nama gambar dari properti img_problem atau dropzoneResponse
+      if (this.img_problem) {
+        imageToDelete = this.img_problem.imageName; // Gantilah "imageName" dengan properti yang sesuai
+      } else if (this.dropzoneResponse) {
+        imageToDelete = this.dropzoneResponse.imageName; // Gantilah "imageName" dengan properti yang sesuai
+      }
+
+      // Periksa apakah ada nama gambar yang akan dihapus
+      if (imageToDelete) {
+        // Panggil API atau metode Anda untuk menghapus gambar
+        this.apiService.deleteImage(imageToDelete).subscribe({
+          next: (res: any) => {
+            if (!res.error) {
+              console.log(res.message);
+            }
+          },
+          error: (err: any) => console.error(err),
+        });
+
+        // Setel properti img_problem atau dropzoneResponse menjadi undefined setelah menghapus gambar
+        this.img_problem = undefined;
+        this.dropzoneResponse = undefined;
+      }
+    }
+  }
+
 
 }

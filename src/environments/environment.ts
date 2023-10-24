@@ -32,6 +32,10 @@ export const environment= {
   //API Images
     image: 'master/image/',
     getImage: 'image/',
+
+  //API Images User
+    image_user: 'master/image/',
+    getImage_user: 'image/',
     refreshToken: 'update-token',
 
   //API daily Report
@@ -40,7 +44,11 @@ export const environment= {
     leader: 'master/leaders',
 
   //API Abnormal
+  abnormal:'master/abnormal',
+  abnormalId:'master/abnormal/',
   
-  
+  //API History.
+  history:'master/history',
+  historyId:'master/history/',
 };
 

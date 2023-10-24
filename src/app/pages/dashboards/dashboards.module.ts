@@ -26,12 +26,15 @@ import { WidgetModule } from '../../shared/widget/widget.module';
 // Component
 import { DashboardProdComponent } from './dashboard-prod/dashboard-prod.component';
 import { DashboardMaintComponent } from './dashboard-maint/dashboard-maint.component';
+import { BackupComponent } from './backup/backup.component';
 
 
 @NgModule({
   declarations: [
     DashboardProdComponent,
-    DashboardMaintComponent
+    DashboardMaintComponent,
+    BackupComponent
+
   ],
   
   imports: [

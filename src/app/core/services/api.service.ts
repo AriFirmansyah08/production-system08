@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment} from 'src/environments/environment';
 
 
@@ -106,17 +105,17 @@ export class ApiService {
 
   insertdaily(data: any) {
     return this.httpClient.post<any>
-    (environment.API_URL + `/master/daily_report`, {form_data : data}, 
+    (environment.API_URL + `master/daily_report`, {form_data : data}, 
     this.httpOptions())
   }
   resetdaily(data: any) {
     return this.httpClient.post<any>
-    (environment.API_URL + `/master/reset_daily_report`, {form_data : data}, 
+    (environment.API_URL + `master/reset_daily_report`, {form_data : data}, 
     this.httpOptions())
   }
   getByIdDaily(id: number) {
     return this.httpClient.get<any>(
-      environment.API_URL + `/master/daily_report/${id}`, 
+      environment.API_URL + `master/daily_report/${id}`, 
       this.httpOptions())
   }
 
@@ -143,6 +142,12 @@ export class ApiService {
   getByIdHistory(id: number){
     return this.httpClient.get<any>
     (environment.API_URL + `/master/history/${id}`, 
+    this.httpOptions())
+  }
+
+  insertData(data: any) {
+    return this.httpClient.post<any>
+    (environment.API_URL + `/master/history`, {form_data : data}, 
     this.httpOptions())
   }
 
@@ -177,5 +182,28 @@ export class ApiService {
     (environment.API_URL + `/master/abnormal`, {form_data : data}, 
     this.httpOptions())
   }
+  updatereset(id: number, data: any) {
+    return this.httpClient.put<any>(
+      environment.API_URL + environment.historyId + id,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
+
+  insertProfile(data: any) {
+    return this.httpClient.post<any>(
+      environment.API_URL + environment.image_user,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
+
+  // updateProfile(data: any) {
+  //   return this.httpClient.put<any>(
+  //     environment.API_URL + environment.image_user,
+  //     { form_data: data },
+  //     this.httpOptions()
+  //   );
+  // }
 
 }

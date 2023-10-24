@@ -23,8 +23,8 @@ import { SharedModule } from "../shared/shared.module";
 import { WidgetModule } from '../shared/widget/widget.module';
 import { DashboardComponent } from './dashboards/dashboard/dashboard.component';
 import { ToastsContainer } from './dashboards/dashboard/toasts-container.component';
-import { DashboardsModule } from "./dashboards/dashboards.module";
 import { ProductionModule } from './production/production.module';
+import { DashboardsModule } from './dashboards/dashboards.module';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,8 @@ import { ProductionModule } from './production/production.module';
     SharedModule,
     WidgetModule,
     NgxUsefulSwiperModule,
-    DashboardsModule,
     ProductionModule,
+    DashboardsModule,
   ],
 })
 export class PagesModule { 

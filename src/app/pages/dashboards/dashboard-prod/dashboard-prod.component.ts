@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActiveProjects, MyTask, TeamMembers, statData } from './data';
+import { ClosingDeals, DealsStatus, UpcomingActivities, statData } from './data';
+
 
 @Component({
   selector: 'app-dashboard-prod',
@@ -11,311 +12,391 @@ export class DashboardProdComponent implements OnInit {
   // bread crumb items
   breadCrumbItems!: Array<{}>;
   statData!: any;
-  OverviewChart: any;
-  ActiveProjects: any;
-  MyTask: any;
-  TeamMembers: any;
-  status7: any;
-  @ViewChild('scrollRef') scrollRef:any;
+  salesForecastChart: any;
+  DealTypeChart: any;
+  splineAreaChart: any;
+  DealsStatus: any;
+  UpcomingActivities: any;
+  ClosingDeals: any;
 
-  constructor() { 
-  }
+  constructor() { }
 
   ngOnInit(): void {
     /**
      * BreadCrumb
      */
-     this.breadCrumbItems = [
-      { label: 'Production' },
+    this.breadCrumbItems = [
+      { label: 'Maintenance' },
       { label: 'Dashboard', active: true }
     ];
 
     /**
      * Fetches the data
      */
-     this.fetchData();
+    this.fetchData();
 
-     // Chart Color Data Get Function
-    this._OverviewChart('["--vz-secondary", "--vz-warning", "--vz-success"]');
-    this._status7('["--vz-success", "--vz-primary", "--vz-warning", "--vz-danger"]');
-
+    // Chart Color Data Get Function
+    this._salesForecastChart('["--vz-primary", "--vz-secondary", "--vz-info"]');
+    this._DealTypeChart('["--vz-warning", "--vz-danger", "--vz-success"]');
+    this._splineAreaChart('["--vz-success", "--vz-danger"]');
   }
 
-  ngAfterViewInit() {
-    this.scrollRef.SimpleBar.getScrollElement().scrollTop = 600;
+    // Chart Colors Set
+    private getChartColorsArray(colors:any) {
+      colors = JSON.parse(colors);
+      return colors.map(function (value:any) {
+        var newValue = value.replace(" ", "");
+        if (newValue.indexOf(",") === -1) {
+          var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
+              if (color) {
+              color = color.replace(" ", "");
+              return color;
+              }
+              else return newValue;;
+          } else {
+              var val = value.split(',');
+              if (val.length == 2) {
+                  var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
+                  rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
+                  return rgbaColor;
+              } else {
+                  return newValue;
+              }
+          }
+      });
+    }
+  
+    /**
+   * Sales Forecast Charts
+   */
+     setforecastvalue(value: any) {
+      if (value == 'oct') {
+          this.salesForecastChart.series = [{
+              name: 'Goal',
+              data: [17]
+          }, {
+              name: 'Pending Forcast',
+              data: [6]
+          }, {
+              name: 'Revenue',
+              data: [37]
+          }]
+      }
+      if (value == 'nov') {
+          this.salesForecastChart.series = [{
+              name: 'Goal',
+              data: [37]
+          }, {
+              name: 'Pending Forcast',
+              data: [12]
+          }, {
+              name: 'Revenue',
+              data: [18]
+          }]
+      }
+      if (value == 'dec') {
+          this.salesForecastChart.series = [{
+              name: 'Goal',
+              data: [25]
+          }, {
+              name: 'Pending Forcast',
+              data: [20]
+          }, {
+              name: 'Revenue',
+              data: [27]
+          }]
+      }
+      if (value == 'jan') {
+          this.salesForecastChart.series = [{
+              name: 'Goal',
+              data: [7]
+          }, {
+              name: 'Pending Forcast',
+              data: [5]
+          }, {
+              name: 'Revenue',
+              data: [32]
+          }]
+      }
   }
 
-   // Chart Colors Set
-   private getChartColorsArray(colors:any) {
-    colors = JSON.parse(colors);
-    return colors.map(function (value:any) {
-      var newValue = value.replace(" ", "");
-      if (newValue.indexOf(",") === -1) {
-        var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
-            if (color) {
-            color = color.replace(" ", "");
-            return color;
-            }
-            else return newValue;;
-        } else {
-            var val = value.split(',');
-            if (val.length == 2) {
-                var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
-                rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
-                return rgbaColor;
-            } else {
-                return newValue;
-            }
-        }
-    });
-  }
-
-  /**
- * Projects Overview
- */
-   setprojectvalue(value: any) {
-    if (value == 'all') {
-      this.OverviewChart.series = [{
-        name: 'Number of Projects',
-        type: 'bar',
-        data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67]
-      }, {
-        name: 'Revenue',
-        type: 'area',
-        data: [89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36, 88.51, 36.57]
-      }, {
-        name: 'Active Projects',
-        type: 'bar',
-        data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35]
-      }]
-    }
-    if (value == '1M') {
-      this.OverviewChart.series = [{
-        name: 'Number of Projects',
-        type: 'bar',
-        data: [24, 75, 16, 98, 19, 41, 52, 34, 28, 52, 63, 67]
-      }, {
-        name: 'Revenue',
-        type: 'area',
-        data: [99.25, 28.58, 98.74, 12.87, 107.54, 94.03, 11.24, 48.57, 22.57, 42.36, 88.51, 36.57]
-      }, {
-        name: 'Active Projects',
-        type: 'bar',
-        data: [28, 22, 17, 27, 21, 11, 5, 9, 17, 29, 12, 15]
-      }]
-    }
-    if (value == '6M') {
-      this.OverviewChart.series = [{
-        name: 'Number of Projects',
-        type: 'bar',
-        data: [34, 75, 66, 78, 29, 41, 32, 44, 58, 52, 43, 77]
-      }, {
-        name: 'Revenue',
-        type: 'area',
-        data: [109.25, 48.58, 38.74, 57.87, 77.54, 84.03, 31.24, 18.57, 92.57, 42.36, 48.51, 56.57]
-      }, {
-        name: 'Active Projects',
-        type: 'bar',
-        data: [12, 22, 17, 27, 1, 51, 5, 9, 7, 29, 12, 35]
-      }]
-    }
-    if (value == '1Y') {
-      this.OverviewChart.series = [{
-        name: 'Number of Projects',
-        type: 'bar',
-        data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67]
-      }, {
-        name: 'Revenue',
-        type: 'area',
-        data: [89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36, 88.51, 36.57]
-      }, {
-        name: 'Active Projects',
-        type: 'bar',
-        data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35]
-      }]
-    }
-  }
-
-  private _OverviewChart(colors:any) {
-    colors = this.getChartColorsArray(colors);
-    this.OverviewChart = {
-      series: [{
-        name: 'Number of Projects',
-        type: 'bar',
-        data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67]
-      }, {
-        name: 'Revenue',
-        type: 'area',
-        data: [89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36, 88.51, 36.57]
-      }, {
-        name: 'Active Projects',
-        type: 'bar',
-        data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35]
-      }],
-      chart: {
-          height: 374,
-          type: 'line',
+    private _salesForecastChart(colors:any) {
+      colors = this.getChartColorsArray(colors);
+      this.salesForecastChart = {
+        series: [{
+          name: 'Goal',
+          data: [37]
+        }, {
+            name: 'Pending Forcast',
+            data: [12]
+        }, {
+            name: 'Revenue',
+            data: [18]
+        }],
+        chart: {
+          type: 'bar',
+          height: 350,
           toolbar: {
               show: false,
-          }
-      },
-      stroke: {
-          curve: 'smooth',
-          dashArray: [0, 3, 0],
-          width: [0,1, 0],
-      },
-      fill: {
-          opacity: [1, 0.1, 1]
-      },
-      markers: {
-          size: [0, 4, 0],
-          strokeWidth: 2,
-          hover: {
-              size: 4,
-          }
-      },
-      xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          },
+        },
+        plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '65%',
+            },
+        },
+        stroke: {
+            show: true,
+            width: 5,
+            colors: ['transparent']
+        },
+        xaxis: {
+          categories: [''],
           axisTicks: {
-              show: false
-          },
-          axisBorder: {
-              show: false
-          }
-      },
-      grid: {
-          show: true,
-          xaxis: {
-              lines: {
-                  show: true,
-              }
-          },
-          yaxis: {
-              lines: {
-                  show: false,
-              }
-          },
-          padding: {
-              top: 0,
-              right: -2,
-              bottom: 15,
-              left: 10
-          },
-      },
-      legend: {
-          show: true,
-          horizontalAlign: 'center',
-          offsetX: 0,
-          offsetY: -5,
-          markers: {
-              width: 9,
-              height: 9,
-              radius: 6,
-          },
-          itemMargin: {
-              horizontal: 10,
-              vertical: 0
-          },
-      },
-      plotOptions: {
-          bar: {
-              columnWidth: '30%',
-              barHeight: '70%'
-          }
-      },
-      colors: colors,
-      tooltip: {
-      shared: true,
-      y: [{
-          formatter: function (y:any) {
-            if(typeof y !== "undefined") {
-              return  y.toFixed(0);
-            }
-            return y;
-            
-          }
-        }, {
-          formatter: function (y:any) {
-            if(typeof y !== "undefined") {
-              return   "$" + y.toFixed(2) + "k";
-            }
-            return y;
-            
-          }
-        }, {
-          formatter: function (y:any) {
-            if(typeof y !== "undefined") {
-              return y.toFixed(0);
-            }
-            return y;
-            
-          }
-        }]
-      }
-    };
-  }
-
-  /**
- *  Status7
- */
-   setstatusvalue(value: any) {
-    if(value == 'all'){
-      this.status7.series = [125, 42, 58, 89]
-    }
-    if(value == '7'){
-      this.status7.series = [25, 52, 158, 99]
-    }
-    if(value == '30'){
-      this.status7.series = [35, 22, 98, 99]
-    }
-    if(value == '90'){
-      this.status7.series = [105, 32, 68, 79]
-    }
-  }
-
-  private _status7(colors:any) {
-    colors = this.getChartColorsArray(colors);
-    this.status7 = {
-      series: [125, 42, 58, 89],
-      labels: ["Completed", "In Progress", "Yet to Start", "Cancelled"],
-      chart: {
-          type: "donut",
-          height: 230,
-      },
-      plotOptions: {
-          pie: {
+              show: false,
+              borderType: 'solid',
+              color: '#78909C',
+              height: 6,
               offsetX: 0,
-              offsetY: 0,
-              donut: {
-                  size: "90%",
-                  labels: {
-                      show: false,
-                  }
+              offsetY: 0
+          },
+          title: {
+              text: 'Forecasted',
+              offsetX: 0,
+              offsetY: -45,
+              style: {
+                  color: '#78909C',
+                  fontSize: '12px',
+                  fontWeight: 400,
               },
           },
-      },
-      dataLabels: {
-          enabled: false,
-      },
-      legend: {
-          show: false,
-      },
-      stroke: {
-          lineCap: "round",
-          width: 0
-      },
-      colors: colors
-    };
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value:any) {
+                  return "$" + value + "k";
+              }
+          },
+          tickAmount: 4,
+          min: 0
+        },
+        fill: {
+            opacity: 1
+        },
+        legend: {
+            show: true,
+            position: 'bottom',
+            horizontalAlign: 'center',
+            fontWeight: 500,
+            offsetX: 0,
+            offsetY: -14,
+            itemMargin: {
+                horizontal: 8,
+                vertical: 0
+            },
+            markers: {
+                width: 10,
+                height: 10,
+            }
+        },
+        colors: colors
+      };
+    }
+  
+    /**
+   * Deal Type Chart
+   */
+     setdealvalue(value: any) {
+      if (value == 'today') {
+          this.DealTypeChart.series = [{
+              name: 'Series 1',
+              data: [80, 50, 30, 40, 100, 20],
+          },
+          {
+              name: 'Series 2',
+              data: [20, 30, 40, 80, 20, 80],
+          },
+          {
+              name: 'Series 3',
+              data: [44, 76, 78, 13, 43, 10],
+          }]
+      }
+      if (value == 'weekly') {
+          this.DealTypeChart.series = [{
+              name: 'Series 1',
+              data: [90, 40, 40, 20, 80, 50],
+          },
+          {
+              name: 'Series 2',
+              data: [50, 20, 30, 70, 30, 80],
+          },
+          {
+              name: 'Series 3',
+              data: [54, 76, 78, 23, 43, 50],
+          }]
+      }
+      if (value == 'monthly') {
+          this.DealTypeChart.series = [{
+              name: 'Series 1',
+              data: [20, 50, 30, 50, 100, 80],
+          },
+          {
+              name: 'Series 2',
+              data: [80, 30, 70, 50, 30, 50],
+          },
+          {
+              name: 'Series 3',
+              data: [44, 56, 78, 53, 43, 10],
+          }]
+      }
+      if (value == 'yearly') {
+          this.DealTypeChart.series = [{
+              name: 'Series 1',
+              data: [20, 50, 90, 40, 100, 20],
+          },
+          {
+              name: 'Series 2',
+              data: [50, 80, 40, 40, 10, 60],
+          },
+          {
+              name: 'Series 3',
+              data: [34, 96, 58, 23, 33, 40],
+          }]
+      }
   }
+
+    private _DealTypeChart(colors:any) {
+      colors = this.getChartColorsArray(colors);
+      this.DealTypeChart = {
+        series: [{
+            name: 'Series 1',
+            data: [80, 50, 30, 40, 100, 20],
+        },
+        {
+            name: 'Series 2',
+            data: [20, 30, 40, 80, 20, 80],
+        },
+        {
+            name: 'Series 3',
+            data: [44, 76, 78, 13, 43, 10],
+        }
+        ],
+        chart: {
+            height: 350,
+            type: 'radar',
+            dropShadow: {
+                enabled: true, blur: 1, left: 1, top: 1
+            },
+            toolbar: {
+                show: false
+            },
+        },
+        stroke: {
+            width: 2
+        },
+        fill: {
+            opacity: 0.2
+        },
+        markers: {
+            size: 0
+        },
+        colors: colors,
+        xaxis: {
+            categories: ['2014', '2015', '2016', '2017', '2018', '2019']
+        }
+      };
+    }
+  
+    /**
+   * Splie-Area Chart
+   */
+     setbalancevalue(value: any) {
+      if(value == 'today'){
+          this.splineAreaChart.series = [{
+              name: 'Revenue',
+              data: [20, 25, 30, 35, 40, 55, 70, 110, 150, 180, 210, 250]
+          }, {
+              name: 'Expenses',
+              data: [12, 17, 45, 42, 24, 35, 42, 75, 102, 108, 156, 199]
+          }]
+      }
+      if(value == 'last_week'){
+          this.splineAreaChart.series = [{
+              name: 'Revenue',
+              data: [30, 35, 40, 45, 20, 45, 20, 100, 120, 150, 190, 220]
+          }, {
+              name: 'Expenses',
+              data: [12, 17, 45, 52, 24, 35, 42, 75, 92, 108, 146, 199]
+          }]
+      }
+      if(value == 'last_month'){
+          this.splineAreaChart.series = [{
+              name: 'Revenue',
+              data: [20, 45, 30, 35, 40, 55, 20, 110, 100, 190, 210, 250]
+          }, {
+              name: 'Expenses',
+              data: [62, 25, 45, 45, 24, 35, 42, 75, 102, 108, 150, 299]
+          }]
+      }
+      if(value == 'current_year'){
+          this.splineAreaChart.series = [{
+              name: 'Revenue',
+              data: [27, 25, 30, 75, 70, 55, 50, 120, 250, 180, 210, 250]
+          }, {
+              name: 'Expenses',
+              data: [12, 17, 45, 42, 24, 35, 42, 75, 102, 108, 156, 199]
+          }]
+      }
+  }
+  
+     private _splineAreaChart(colors:any) {
+      colors = this.getChartColorsArray(colors);
+      this.splineAreaChart = {
+        series: [{
+            name: 'Revenue',
+            data: [20, 25, 30, 35, 40, 55, 70, 110, 150, 180, 210, 250]
+        },{
+            name: 'Expenses',
+            data: [12, 17, 45, 42, 24, 35, 42, 75, 102, 108, 156, 199]
+        }],
+        chart: {
+            height: 290,
+            type: 'area',
+            toolbar: 'false',
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 2,
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yaxis: {
+            tickAmount: 5,
+            min: 0,
+            max: 260
+        },
+        colors: colors,
+        fill: {
+            opacity: 0.06,
+            type: 'solid'
+        }
+      };
+    }
 
   /**
    * Fetches the data
    */
-  private fetchData() {
+   private fetchData() {
     this.statData = statData;
-    this.ActiveProjects = ActiveProjects;
-    this.MyTask = MyTask;
-    this.TeamMembers = TeamMembers;
+    this.DealsStatus = DealsStatus;
+    this.UpcomingActivities = UpcomingActivities;
+    this.ClosingDeals = ClosingDeals;
   }
 
 }
+

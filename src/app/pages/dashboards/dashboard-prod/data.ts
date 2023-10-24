@@ -1,252 +1,224 @@
-import { ChartOptions } from './dashboard-prod.model';
-
-/**
- * Stat Counder Data
- */
- const statData = [{
-    title: 'Amount',
-    value: 542000,
-    icon: 'award',
-    persantage: '5.02',
-    profit: 'up',
-    month: 'Projects'
+    /**
+     * Stat Counder Data
+     */
+    const statData = [{
+      title: 'CAMPAIGN SENT',
+      value: 197,
+      icon: 'ri-space-ship-line',
+      profit: 'up'
   }, {
-    title: 'Reject',
-    value: 250,
-    icon: 'award',
-    persantage: '3.58',
-    profit: 'down',
-    month: 'Leads'
+      title: 'ANNUAL PROFIT',
+      value: 489.4,
+      icon: 'ri-exchange-dollar-line',
+      profit: 'up'
   }, {
-    title: 'Total Amount',
-    value: 168.40,
-    icon: 'clock',
-    persantage: '10.35 ',
-    // profit: 'down',
-    month: 'Work'
+      title: 'LEAD COVERSATION',
+      value: 32.89,
+      icon: 'ri-pulse-line',
+      profit: 'down'
+  }, {
+      title: 'DAILY AVERAGE INCOME',
+      value: 1596.5,
+      icon: 'ri-trophy-line',
+      profit: 'up'
+  }, {
+      title: 'ANNUAL DEALS',
+      value: 2659,
+      icon: 'ri-service-line',
+      profit: 'down'
   }
-];
+  ];
 
-/**
- * Active Projects
- */
- const ActiveProjects = [
-  {
-    Pname: "Brand Logo Design",
-    profile: 'assets/images/users/avatar-1.jpg',
-    Uname: 'Donald Risher',
-    progress: 53,
-    assignee: [
-        {
-          profile: 'assets/images/users/avatar-1.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-2.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-3.jpg'
-        },
-      ],
-    status: 'Progress',
-    date: '06 Sep 2021'
-  },
-  {
-    Pname: "Redesign - Landing Page",
-    profile: 'assets/images/users/avatar-2.jpg',
-    Uname: 'Prezy William',
-    progress: 0,
-    assignee: [
-        {
-          profile: 'assets/images/users/avatar-5.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-6.jpg'
-        }
-      ],
-    status: 'Pending',
-    date: '13 Nov 2021'
-  },
-  {
-    Pname: "Multipurpose Landing Template",
-    profile: 'assets/images/users/avatar-3.jpg',
-    Uname: 'Boonie Hoynas',
-    progress: 100,
-    assignee: [
-        {
-          profile: 'assets/images/users/avatar-7.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-8.jpg'
-        }
-      ],
-    status: 'Completed',
-    date: '26 Nov 2021'
-  },
-  {
-    Pname: "Chat Application",
-    profile: 'assets/images/users/avatar-5.jpg',
-    Uname: 'Pauline Moll',
-    progress: 64,
-    assignee: [
-        {
-          profile: 'assets/images/users/avatar-2.jpg'
-        }
-      ],
-    status: 'Progress',
-    date: '15 Dec 2021'
-  },
-  {
-    Pname: "Create Wireframe",
-    profile: 'assets/images/users/avatar-6.jpg',
-    Uname: 'James Bangs',
-    progress: 77,
-    assignee: [
-        {
-          profile: 'assets/images/users/avatar-1.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-6.jpg'
-        },
-        {
-          profile: 'assets/images/users/avatar-4.jpg'
-        }
-      ],
-    status: 'Progress',
-    date: '21 Dec 2021'
-  }
-];
 
-/**
- * My Task
- */
- const MyTask = [
-  {
-    name: "Create new Admin Template",
-    dedline: '03 Nov 2021',
-    status: 'Completed',
-    assignee: 
-    {
-      name: 'Mary Stoner',
-      profile: 'assets/images/users/avatar-2.jpg'
-    }
-  },
-  {
-    name: "Marketing Coordinator",
-    dedline: '17 Nov 2021',
-    status: 'Progress',
-    assignee: 
-    {
-      name: 'Den Davis',
-      profile: 'assets/images/users/avatar-7.jpg'
-    }
-  },
-  {
-    name: "Administrative Analyst",
-    dedline: '26 Nov 2021',
-    status: 'Completed',
-    assignee: 
-    {
-      name: 'Alex Brown',
-      profile: 'assets/images/users/avatar-6.jpg'
-    }
-  },
-  {
-    name: "E-commerce Landing Page",
-    dedline: '10 Dec 2021',
-    status: 'Pending',
-    assignee: 
-    {
-      name: 'Prezy Morin',
-      profile: 'assets/images/users/avatar-5.jpg'
-    }
-  },
-  {
-    name: "UI/UX Design",
-    dedline: '22 Dec 2021',
-    status: 'Progress',
-    assignee: 
-    {
-      name: 'Stine Nielsen',
-      profile: 'assets/images/users/avatar-1.jpg'
-    }
-  },
-  {
-    name: "Projects Design",
-    dedline: '31 Dec 2021',
-    status: 'Pending',
-    assignee: 
-    {
-      name: 'Jansh William',
-      profile: 'assets/images/users/avatar-4.jpg'
-    }
-  }
-  
-];
+  const DealsStatus = [
+      {
+          name: "Absternet LLC",
+          date: 'Sep 20, 2021',
+          profile: 'assets/images/users/avatar-1.jpg',
+          userName: 'Donald Risher',
+          status: "Deal Won",
+          value: "100.1K"
+      },
+      {
+          name: "Raitech Soft",
+          date: 'Sep 23, 2021',
+          profile: 'assets/images/users/avatar-2.jpg',
+          userName: 'Sofia Cunha',
+          status: "Intro Call",
+          value: "150K"
+      },
+      {
+          name: "William PVT",
+          date: 'Sep 27, 2021',
+          profile: 'assets/images/users/avatar-3.jpg',
+          userName: 'Luis Rocha',
+          status: "Stuck",
+          value: "78.18K"
+      },
+      {
+          name: "Loiusee LLP",
+          date: 'Sep 30, 2021',
+          profile: 'assets/images/users/avatar-4.jpg',
+          userName: 'Vitoria Rodrigues',
+          status: "Deal Won",
+          value: "180K"
+      },
+      {
+          name: "Apple Inc.",
+          date: 'Sep 30, 2021',
+          profile: 'assets/images/users/avatar-6.jpg',
+          userName: 'Vitoria Rodrigues',
+          status: "New Lead",
+          value: "78.9K"
+      }
+  ];
 
-/**
- * Team Members
- */
- const TeamMembers = [
-  {
-    name: "Create new Admin Template",
-    dedline: '03 Nov 2021',
-    status: 'Completed',
-    assignee: 
-    {
-      name: 'Mary Stoner',
-      profile: 'assets/images/users/avatar-2.jpg'
-    }
-  },
-  {
-    name: "Marketing Coordinator",
-    dedline: '17 Nov 2021',
-    status: 'Progress',
-    assignee: 
-    {
-      name: 'Den Davis',
-      profile: 'assets/images/users/avatar-7.jpg'
-    }
-  },
-  {
-    name: "Administrative Analyst",
-    dedline: '26 Nov 2021',
-    status: 'Completed',
-    assignee: 
-    {
-      name: 'Alex Brown',
-      profile: 'assets/images/users/avatar-6.jpg'
-    }
-  },
-  {
-    name: "E-commerce Landing Page",
-    dedline: '10 Dec 2021',
-    status: 'Pending',
-    assignee: 
-    {
-      name: 'Prezy Morin',
-      profile: 'assets/images/users/avatar-5.jpg'
-    }
-  },
-  {
-    name: "UI/UX Design",
-    dedline: '22 Dec 2021',
-    status: 'Progress',
-    assignee: 
-    {
-      name: 'Stine Nielsen',
-      profile: 'assets/images/users/avatar-1.jpg'
-    }
-  },
-  {
-    name: "Projects Design",
-    dedline: '31 Dec 2021',
-    status: 'Pending',
-    assignee: 
-    {
-      name: 'Jansh William',
-      profile: 'assets/images/users/avatar-4.jpg'
-    }
-  }
-];
+  /**
+   * Upcoming Activities
+   */
+  const UpcomingActivities = [
+      {
+          date: "25",
+          day: 'Tue',
+          time: '12:00am - 03:30pm',
+          content: 'Meeting for campaign with sales team',
+          users: [
+              {
+              name: 'Stine Nielsen',
+              profile: 'assets/images/users/avatar-1.jpg'
+              },
+              {
+                  name: 'Jansh Brown',
+                  profile: 'assets/images/users/avatar-2.jpg'
+              },
+              {
+                  name: 'Dan Gibson',
+                  profile: 'assets/images/users/avatar-3.jpg'
+              },
+              {
+              name: '5',
+              variant: "bg-info"
+              }
+          ]
+      },
+      {
+          date: "20",
+          day: 'Wed',
+          time: '02:00pm - 03:45pm',
+          content: 'Adding a new event with attachments',
+          users: [
+              {
+              name: 'Frida Bang',
+              profile: 'assets/images/users/avatar-4.jpg'
+              },
+              {
+                  name: 'Malou Silva',
+                  profile: 'assets/images/users/avatar-5.jpg'
+              },
+              {
+                  name: 'Simon Schmidt',
+                  profile: 'assets/images/users/avatar-6.jpg'
+              },
+              {
+                  name: 'Tosh Jessen',
+                  profile: 'assets/images/users/avatar-7.jpg'
+              },
+              {
+              name: '3',
+              variant: "bg-success"
+              }
+          ]
+      },
+      {
+          date: "17",
+          day: 'Wed',
+          time: '04:30pm - 07:15pm',
+          content: 'Create new project Bundling Product',
+          users: [
+              {
+              name: 'Nina Schmidt',
+              profile: 'assets/images/users/avatar-8.jpg'
+              },
+              {
+                  name: 'Stine Nielsen',
+                  profile: 'assets/images/users/avatar-1.jpg'
+              },
+              {
+                  name: 'Jansh Brown',
+                  profile: 'assets/images/users/avatar-2.jpg'
+              },
+              {
+              name: '4',
+              variant: "bg-primary"
+              }
+          ]
+      },
+      {
+          date: "12",
+          day: 'Tue',
+          time: '10:30am - 01:15pm',
+          content: 'Weekly closed sales won checking with sales team',
+          users: [
+              {
+              name: 'Stine Nielsen',
+              profile: 'assets/images/users/avatar-1.jpg'
+              },
+              {
+                  name: 'Jansh Brown',
+                  profile: 'assets/images/users/avatar-5.jpg'
+              },
+              {
+                  name: 'Dan Gibson',
+                  profile: 'assets/images/users/avatar-2.jpg'
+              },
+              {
+              name: '9',
+              variant: "bg-warning"
+              }
+          ]
+      }
+  ];
 
-export { statData, ActiveProjects, MyTask, TeamMembers };
+  /**
+   * Closing Deals
+   */
+  const ClosingDeals = [
+      {
+          name: "Acme Inc Install",
+          profile: 'assets/images/users/avatar-1.jpg',
+          userName: 'Donald Risher',
+          amount: "96k",
+          date: "Today"
+      },
+      {
+          name: "Save lots Stores",
+          profile: 'assets/images/users/avatar-2.jpg',
+          userName: 'Jansh Brown',
+          amount: "55.7k",
+          date: "30 Dec 2021"
+      },
+      {
+          name: "William PVT",
+          profile: 'assets/images/users/avatar-7.jpg',
+          userName: 'Ayaan Hudda',
+          amount: "102k",
+          date: "25 Nov 2021"
+      },
+      {
+          name: "Raitech Soft",
+          profile: 'assets/images/users/avatar-4.jpg',
+          userName: 'Julia William',
+          amount: "89.5k",
+          date: "20 Sep 2021"
+      },
+      {
+          name: "Absternet LLC",
+          profile: 'assets/images/users/avatar-4.jpg',
+          userName: 'Vitoria Rodrigues',
+          amount: "89.5k",
+          date: "20 Sep 2021"
+      }
+  ];
+
+
+  export { statData, DealsStatus, UpcomingActivities, ClosingDeals };
