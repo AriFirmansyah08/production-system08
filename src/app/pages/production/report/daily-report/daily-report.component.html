@@ -105,12 +105,12 @@
             <option *ngFor="let data of leadersData" [value]="data.full_name">{{data.full_name}}</option>
           </select>
         </div>
-        <div class="col-12">
-          <label for="id-field" class="form-label">Production Hours</label>
-          <select class="form-select mb-3" aria-label="Default select example" formControlName="production_hours">
-            <option *ngFor="let data of hoursData" [value]="data.label">{{data.label}}</option>
-          </select>
-        </div>
+        <div class="col col-12">
+          <div class="text-center">
+            <label for="id-field" class="form-label">Production Hours</label>
+              <input type="time" class="form-control" formControlName="production_hours">
+          </div>
+      </div>
         <div class="col-12">
           <label for="placeholderInput" class="form-label">Result</label>
           <input type="number" class="form-control" id="placeholderInput" placeholder="Enter Result"
@@ -144,12 +144,12 @@
             <option *ngFor="let data of leadersData" [value]="data.full_name">{{data.full_name}}</option>
           </select>
         </div>
-        <div class="col-12">
+        <!-- <div class="col-12">
           <label for="id-field" class="form-label">Production Hours</label>
           <select class="form-select mb-3" aria-label="Default select example" formControlName="production_hours">
             <option *ngFor="let data of hoursData" [value]="data.label">{{data.label}}</option>
           </select>
-        </div>
+        </div> -->
         <div class="col-12">
           <label for="placeholderInput" class="form-label">Result</label>
           <input type="number" class="form-control" id="placeholderInput" placeholder="Enter Result"

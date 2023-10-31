@@ -9,47 +9,98 @@
                 <div class="row">
                     <div class="col col-6">
                         <div class="mb-5 text-center">
-                            <label for="problemInput" class="form-label text-center "><h5><b><u>PROBLEM</u></b></h5></label>
+                            <label for="problemInput" class="form-label text-center ">
+                                <h5><b><u>PROBLEM</u></b></h5>
+                            </label>
                             <textarea class="form-control" id="problemInput" rows="5" placeholder="Enter Your Problem"
                                 #problemInput></textarea>
-                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgProblem($event)" class="dropzone_sec"></dropzone>
-                            <!-- <button *ngIf="dropzoneResponse !== undefined" class="btn btn-sm btn-outline-danger" (click)="deleteImageProblem()">Remove</button> -->
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgProblem($event)"
+                                class="dropzone_sec"></dropzone>
+                            <!-- <button *ngIf="dropzoneResponse !== undefined" class="btn btn-sm btn-outline-danger" (click)="deleteImageProblem()">Remove</button>(click)="deleteIcon(appData.icon)" -->
                         </div>
                     </div>
                     <div class="col col-6">
                         <div class="mb-5 text-center">
-                            <label for="causeInput" class="form-label text-center"><h5><b><u>CAUSE</u></b></h5></label>
+                            <label for="causeInput" class="form-label text-center">
+                                <h5><b><u>CAUSE</u></b></h5>
+                            </label>
                             <textarea class="form-control" id="causeInput" rows="5" placeholder="Enter Your Cause"
                                 #causeInput></textarea>
-                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCause($event)" class="dropzone_sec"></dropzone>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCause($event)"
+                                class="dropzone_sec"></dropzone>
                         </div>
-                    </div>
+                    </div> 
                 </div>
-                <input class="form-control rounded-start ps-2 input" placeholder="" tabindex="0" type="text">
                 <div class="row">
                     <div class="col col-6">
                         <div class="mb-3 text-center">
-                            <label for="ca_paInput" class="form-label text-center"><h5><b><u>CA_PA Currection</u></b></h5></label>
-                            <textarea class="form-control" id="ca_pationInput" rows="5" placeholder="Enter your Ca_Pa Currection"
-                                #ca_paInput></textarea>
-                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrention($event)" class="dropzone_sec"></dropzone>
+                            <label for="ca_paInput" class="form-label text-center">
+                                <h5><b><u>CA_PA Currection</u></b></h5>
+                            </label>
+                            <textarea class="form-control" id="ca_pationInput" rows="5"
+                                placeholder="Enter your Ca_Pa Currection" #ca_paInput></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrention($event)"
+                                class="dropzone_sec"></dropzone>
                         </div>
                     </div>
                     <div class="col col-6">
                         <div class="mb-3 text-center">
-                            <label for="ca_paInput" class="form-label text-center"><h5><b><u>CA_PA Cureective</u></b></h5></label>
-                            <textarea class="form-control" id="ca_pativeInput" rows="5" placeholder="Enter your CaPa currective"
-                                #ca_paInput></textarea>
-                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrentive($event)" class="dropzone_sec"></dropzone>
+                            <label for="ca_paInput" class="form-label text-center">
+                                <h5><b><u>CA_PA Cureective</u></b></h5>
+                            </label>
+                            <textarea class="form-control" id="ca_pativeInput" rows="5"
+                                placeholder="Enter your CaPa currective" #ca_paInput></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgCapaCurrentive($event)"
+                                class="dropzone_sec"></dropzone>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-6">
+                        <div class="mb-3 text-center">
+                            <label for="action" class="form-label text-center">
+                                <h5><b><u>Action</u></b></h5>
+                            </label>
+                            <textarea class="form-control" id="action" rows="5"
+                                placeholder="Enter your Ca_Pa Currection" #action></textarea>
+                            <dropzone [config]="dropzoneConfig" (success)="onUploadImgAction($event)"
+                                class="dropzone_sec"></dropzone>
+                    </div>
+                    <div class="col col-6 text-center" [formGroup]="formSection">
+                        <label for="ca_paInput" class="form-label text-center">
+                            <h5><b><u>Machine </u></b></h5>
+                        </label>
+                        <ng-select [items]="MachineData" bindLabel="section" bindValue="section" groupBy="kode" formControlName="section" [(ngModel)]="selectedGroup">
+                            <ng-template ng-optgroup-tmp let-item="item" >
+                                {{item.kode || 'Unnamed group'}}
+                            </ng-template>
+                        </ng-select>
+                        <br>
+                        <div class="row">
+                            <div class="col col-6">
+                                <div class="text-center">
+                                    <label class="form-label">
+                                        <h5><b><u>Start Time</u></b></h5>
+                                    </label>
+                                    <input type="time" class="form-control" formControlName="start_time">
+                                </div>
+                            </div>
+                            <div class="col col-6">
+                                <div class="text-center">
+                                    <label class="form-label">
+                                        <h5><b><u>End Time</u></b></h5>
+                                    </label>
+                                    <input type="time" class="form-control" formControlName="end_time">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                    
                 <div class="row pt-3">
                     <div class="col-4">
+                        <!-- (click)="onSubmit()" -->
                         <button class="btn btn-primary w-50 p-2" style="width: max-content; padding: 5px;"
-                            (click)="onSubmit()">
+                            (click)="confirm()">
                             Submit
                         </button>
                     </div>

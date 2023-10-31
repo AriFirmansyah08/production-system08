@@ -1,8 +1,5 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
-import { Observable } from 'rxjs';
-import { dataattribute, existingList, FuzzyList, paginationlist } from 'src/app/core/helpers/data-daily';
 import { DecimalPipe } from '@angular/common';
-import { DailyReportService } from 'src/app/core/services/daily-report.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   selector: 'app-daily-history',
   templateUrl: './daily-history.component.html',
   styleUrls: ['./daily-history.component.scss'],
-  providers: [DailyReportService, DecimalPipe]
+  providers: [DecimalPipe]
 })
 
 export class DailyHistoryComponent {
@@ -29,8 +26,7 @@ export class DailyHistoryComponent {
   historyData:any;
   id: number | undefined;
   
-  constructor( 
-    public service: DailyReportService, 
+  constructor(
     public apiservice:ApiService,
     private router: Router,
     private route: ActivatedRoute,) {
@@ -119,10 +115,7 @@ export class DailyHistoryComponent {
     return `Showing ${startIndex} - ${endIndex}`;
   }
 
-  // onPageSizeChange() {
-  //   this.startIndex = 1; 
-  //   this.endIndex = this.pageSize;
-  // }
+
   onPageSizeChange() {
     this.page = 1; // Kembali ke halaman pertama
     this.setPaginationData();

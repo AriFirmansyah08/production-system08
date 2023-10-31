@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
-import { DailyReportService } from 'src/app/core/services/daily-report.service';
 
 @Component({
   selector: 'app-view',
@@ -28,8 +27,7 @@ export class ViewComponent {
 
   constructor(public apiservice:ApiService,
     private router: Router,
-    private route: ActivatedRoute,
-    public service: DailyReportService, ) {
+    private route: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
@@ -109,9 +107,10 @@ export class ViewComponent {
       console.log('data', this.abnormalData);
       console.log('filter', this.filteredAbnormalData);
     } else {
-      this.filteredAbnormalData = this.abnormalData.filter((data: { id_abnormal: string, date: string, problem: string, cause: string, capa_currection: string, capa_currective: string }) => {
+      this.filteredAbnormalData = this.abnormalData.filter((data: { id_abnormal: string, date: string, problem: string, cause: string, capa_currection: string, capa_currective: string, section: string }) => {
         return (
           data.id_abnormal.toString().includes(this.searchTerm) ||
+          data.section.toString().includes(this.searchTerm) ||
           data.date.toString().includes(this.searchTerm) ||
           data.problem.toString().includes(this.searchTerm) ||
           data.cause.toString().includes(this.searchTerm) ||

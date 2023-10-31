@@ -1,58 +1,62 @@
 .square-image {
-    width: 150px; /* Atur lebar sesuai yang Anda inginkan */
-    height: 150px; /* Atur tinggi sesuai yang Anda inginkan */
-    object-fit: cover; /* Menjaga gambar tetap proporsional */
-  }
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border: 0px solid #ccc;
 
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 kolom dalam grid */
-    gap: 20px; /* Jarak antara elemen-elemen */
-  }
-  
-  .image-item {
-    text-align: center;
-  }
-  
-  .square-image {
-    width: 150px; /* Atur lebar sesuai yang Anda inginkan */
-    height: 150px; /* Atur tinggi sesuai yang Anda inginkan */
-    object-fit: contain; /* Menjaga gambar tetap proporsional tanpa memotong */
-    border: 0px solid #ccc; /* Garis tepi untuk menampilkan batas kotak gambar */
-    
-  }
-  
-
-  /* Menghilangkan judul (title) */
-@page {
-    size: auto;
-    margin: 0mm;
-}
-
-/* Menghilangkan alamat URL */
-@page :left {
-    margin: 0;
-}
-
-@page :right {
-    margin: 0;
 }
 
 .image-table {
   break-inside: avoid;
   page-break-inside: avoid;
 }
-/* Set lebar tabel agar sesuai dengan halaman A4 */
+
 .image-table {
   width: 100%;
   max-width: 100%;
 }
 
-/* Atur pemisahan elemen pada halaman cetak */
-.image-table tr, .image-table th, .image-table td {
+.image-table tr,
+.image-table th,
+.image-table td {
   page-break-inside: avoid;
 }
 
+table {
+  width: 100%;
+  table-layout: fixed;
+}
 
-  
-  
+th,
+td {
+  width: 16.66%;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media print {
+  body {
+    transform: rotate(0deg);
+    transform-origin: 50% 50%;
+    width: 21cm;
+    height: 29.7cm;
+  }
+
+  .d-print-none {
+    display: none;
+  }
+
+  .print-page {
+    max-height: 29.7cm;
+  }
+
+  .header2 {
+    page-break-before: always;
+  }
+
+  .header3 {
+    page-break-before: avoid;
+  }
+}

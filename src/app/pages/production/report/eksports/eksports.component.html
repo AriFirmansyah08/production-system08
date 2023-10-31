@@ -11,9 +11,9 @@
                         <div class="d-flex flex-wrap">
                             <div class="flex-grow-1">
                                 <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-dark"
-                                    alt="logo dark" height="25">
+                                    alt="logo dark" height="35">
                                 <img src="assets/images/logo/AIO-PS-primary.png" class="card-logo card-logo-light"
-                                    alt="logo light" height="25">
+                                    alt="logo light" height="35">
 
                                 <div class="mt-sm-5 mt-4">
                                     <h6 class="text-muted text-uppercase fw-semibold">Address</h6>
@@ -68,10 +68,12 @@
                                 style="width:250px">
                                 <tbody>
                                     <tr>
-                                        <td>Date</td>
-                                        <td class="text-end">{{ dataID.date |date: 'dd-MM-yyyy' }}
-                                            <br><span>{{dataID.date | date: 'HH:mm'}}</span>
-                                        </td>
+                                        <td>Start Time</td>
+                                        <td class="text-end">{{ start_time }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Finish Time</td>
+                                        <td class="text-end">{{ finish_time }}</td>
                                     </tr>
                                     <tr>
                                         <td>Lot Number</td>
@@ -87,7 +89,7 @@
                                     </tr>
                                     <tr>
                                         <td>Line Efensiensi</td>
-                                        <td class="text-end">{{ lineEfficiency }}</td>
+                                        <td class="text-end">{{ lineEfficiency }}%</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -95,8 +97,6 @@
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                             <a href="javascript:window.print()" class="btn btn-success"><i
                                     class="ri-printer-line align-bottom me-1"></i> Print</a>
-                            <a href="javascript:void(0);" class="btn btn-primary"><i
-                                    class="ri-download-2-line align-bottom me-1"></i> Download</a>
                         </div>
                     </div>
                 </div>

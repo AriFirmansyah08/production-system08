@@ -15,7 +15,6 @@ import { OnInit } from '@angular/core';
 })
 
 export class DailyReportComponent implements OnInit{
-  // bread crumb items
   breadCrumbItems!: Array<{}>;
   submitted = false;
   dailyReportForm!: UntypedFormGroup;
@@ -28,35 +27,33 @@ export class DailyReportComponent implements OnInit{
   dailyDataById:any;
   leadersData: any;
   dataEdit: any[]=[];
-
-  hoursData = [
-    { label:'0:00' },
-    { label:'1:00' },
-    { label:'2:00' },
-    { label:'3:00' },
-    { label:'4:00' },
-    { label:'5:00' },
-    { label:'6:00' },
-    { label:'7:00' },
-    { label:'8:00' },
-    { label:'9:00' },
-    { label:'10:00' },
-    { label:'11:00' },
-    { label:'12:00' },
-    { label:'13:00' },
-    { label:'14:00' },
-    { label:'15:00' },
-    { label:'16:00' },
-    { label:'17:00' },
-    { label:'18:00' },
-    { label:'19:00' },
-    { label:'20:00' },
-    { label:'21:00' },
-    { label:'22:00' },
-    { label:'23:00' },
-    { label:'24:00' },
-  ]
-  
+  // hoursData = [
+  //   { label:'0:00' },
+  //   { label:'1:00' },
+  //   { label:'2:00' },
+  //   { label:'3:00' },
+  //   { label:'4:00' },
+  //   { label:'5:00' },
+  //   { label:'6:00' },
+  //   { label:'7:00' },
+  //   { label:'8:00' },
+  //   { label:'9:00' },
+  //   { label:'10:00' },
+  //   { label:'11:00' },
+  //   { label:'12:00' },
+  //   { label:'13:00' },
+  //   { label:'14:00' },
+  //   { label:'15:00' },
+  //   { label:'16:00' },
+  //   { label:'17:00' },
+  //   { label:'18:00' },
+  //   { label:'19:00' },
+  //   { label:'20:00' },
+  //   { label:'21:00' },
+  //   { label:'22:00' },
+  //   { label:'23:00' },
+  //   { label:'24:00' },
+  // ]
   
   constructor(
     private modalService: NgbModal,
@@ -132,17 +129,6 @@ export class DailyReportComponent implements OnInit{
   get form() {
     return this.dailyReportForm.controls;
   }
-  // onUpdate(){
-  //   this.apiService.updatedaily(this.dataEdit.id_dailyReport, this.editDailyReportForm.value).subscribe({
-  //     next: (res: any) => {
-  //       if (res.status) {
-  //         this.modalService.dismissAll()
-  //         this.ngOnInit()
-  //       } 
-  //     },
-  //     error: (err: any) => console.error(err),
-  //   });
-  // }
 
   onReset(){
     this.apiService.resetdaily(this.dailyData).subscribe({

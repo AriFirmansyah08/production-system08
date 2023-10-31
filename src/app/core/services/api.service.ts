@@ -81,7 +81,7 @@ export class ApiService {
     );
   }
 
-  insertImage(file: any) {
+  insertImageAbnormal(file: any) {
     return this.httpClient.post<any>(
       environment.API_URL + environment.image,
       { file: file },
@@ -89,9 +89,17 @@ export class ApiService {
     );
   }
 
+
   deleteImage(filename: string) {
     return this.httpClient.delete<any>(
       environment.API_URL + environment.image + filename,
+      this.httpOptions()
+    );
+  }
+
+  deleteImageAbnormal(filename: string) {
+    return this.httpClient.delete<any>(
+      environment.API_URL + environment.Image_abnormal + filename,
       this.httpOptions()
     );
   }
@@ -189,6 +197,13 @@ export class ApiService {
       this.httpOptions()
     );
   }
+  
+  getAllMachine() {
+    return this.httpClient.get<any>
+    (environment.API_URL + 'master/machine', 
+    this.httpOptions())
+  }
+
 
   insertProfile(data: any) {
     return this.httpClient.post<any>(

@@ -1,1 +1,193 @@
-<p>wekly-report works!</p>
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Daily Report" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="customerList">
+                    <div class="row g-4 mb-3">
+                        <div class="col-sm-auto">
+                            <div class="d-flex gap-1 px-5 d-print-none">
+                                <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal"
+                                    id="create-btn" data-bs-target="#content" (click)="openModal(content)"><i
+                                        class="ri-add-line align-bottom me-1"></i>
+                                    Add
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive table-card mt-3 mb-1">
+                        <table class="table">
+                            <thead>
+                                <tr class="bg-light text-muted">
+                                    <th scope="col" style="width: 50px;">NO</th>
+                                    <th> No </th>
+                                    <th> Task </th>
+                                    <th> PIC </th>
+                                    <th> Due Date </th>
+                                    <th> Remark </th>
+                                    <th> Next Plan</th>
+                                    <th class="d-print-none">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <ngb-highlight></ngb-highlight>
+                                    </td>
+                                    <td>
+                                        <div class="edit d-print-none">
+                                            <button type="button" class="btn btn-primary edit-item-btn"
+                                                data-bs-toggle="modal" data-bs-target="#showModal"><i
+                                                    class="ri-edit-line align-bottom me-1"></i>
+                                                edit</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add ListJs Data -->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header bg-light p-3">
+        <h5 class="modal-title" id="exampleModalLabel">Add Task Activity</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form [formGroup]="dailyReportForm" class="tablelist-form" autocomplete="off">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                    <label for="placeholderInput" class="form-label">task</label>
+                    <input type="text" class="form-control" id="placeholderInput" placeholder="Enter Result"
+                        formControlName="result">
+                </div>
+
+                <div class="col-12">
+                    <label for="id-field" class="form-label"> PIC </label>
+                    <select class="form-select mb-3" aria-label="Default select example"
+                        formControlName="shift_leaders">
+                        <option *ngFor="let data of leadersData" [value]="data.full_name">{{data.full_name}}</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label for="placeholderInput" class="form-label">Remark</label>
+                    <input type="text" class="form-control" id="placeholderInput" placeholder="Enter Result"
+                        formControlName="result">
+                </div>
+                <div class="col-12">
+                    <label for="placeholderInput" class="form-label">Next Plan</label>
+                    <input type="text" class="form-control" id="placeholderInput" placeholder="Enter Result"
+                        formControlName="result">
+                </div>
+                <br>
+
+                <div class="col-12">
+                    <label for="placeholderInput" class="form-label">example</label>
+                    <ng-select [items]="Default" [multiple]="true" bindLabel="name"
+                    [(ngModel)]="multiDefaultOption">
+                    <ng-template ng-optgroup-tmp let-item="item">
+                        {{item.country || 'Unnamed group'}}
+                    </ng-template>
+                  </ng-select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                    (click)="modal.close('Close click')">Close</button>
+                <button type="submit" (click)="onSubmit()" class="btn btn-primary" id="add-btn">Submit</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Edit Modal -->
+<!-- <ng-template #contentEdit role="document" let-modal>
+  <div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel">Edit Daily Report</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="editDailyReportForm" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <label for="id-field" class="form-label">Shift Leader</label>
+          <select class="form-select mb-3" aria-label="Default select example" formControlName="shift_leaders">
+            <option *ngFor="let data of leadersData" [value]="data.full_name">{{data.full_name}}</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="placeholderInput" class="form-label">Result</label>
+          <input type="number" class="form-control" id="placeholderInput" placeholder="Enter Result"
+            formControlName="result">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="hstack gap-2 justify-content-end">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+          (click)="modal.close('Close click')">Close</button>
+        <button type="submit"  class="btn btn-primary" id="add-btn">Submit</button>
+      </div>
+    </div>
+  </form>
+</ng-template> -->
+
+<!-- Modal Lot Number-->
+<!-- <ng-template #contentLot role="document" let-modal>
+  <div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel">LOT Number</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="ReportFormReset" class="tablelist-form" autocomplete="off">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+       <input type="text" class="form-control" id="placeholderInput" [(ngModel)]="dataonReset"formControlName="lot_number" placeholder="yours volue">
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="hstack gap-2 justify-content-end">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+          (click)="modal.close('Close click')">Close</button>
+        <button type="submit" (click)="onReset()" class="btn btn-primary" id="add-btn">Submit</button>
+      </div>
+    </div>
+  </form>
+</ng-template> -->
