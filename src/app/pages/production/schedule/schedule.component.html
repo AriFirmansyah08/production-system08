@@ -28,13 +28,13 @@
                         <div class="col-12">
                             <div class="mb-3">
 
-                                <div class="col-12">
-                                    <label for="id-field" class="form-label">type</label>
-                                    <select class="form-select mb-3" aria-label="Default select example" formControlName="category"
-                                    required="select to type">
-                                      <option *ngFor="let data of category" [value]="data.name" [value]="data.value">{{data.name}}</option>
-                                    </select>
-                                </div>
+                                <label for="id-field" class="form-label">type</label>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="category" required="select to type">
+                                    <option *ngFor="let data of category" [value]="data.name"
+                                        [ngStyle]="{ 'background-color': data.value }">{{data.name}}</option>
+                                </select>
+
                                 <div *ngIf="submitted && form['category'].errors" class="invalid-feedback">
                                     <div *ngIf="form['category'].errors['required']">
                                         This value is required
@@ -59,38 +59,30 @@
                             <div class="mb-3">
                                 <label>Event Date</label>
                                 <div class="input-group">
-                                    <input class="form-control flatpickr-input" type="text" mwlFlatpickr
-                                        [altInput]="true" [convertModelValue]="true" placeholder="Select date"
-                                        id="event-date" formControlName="event_date">
+                                    <input class="form-control flatpickr-input form-control-solid" type="text"
+                                        mwlFlatpickr data-provider="flatpickr" data-date-format="d M, Y"
+                                        [altInput]="true" [convertModelValue]="true" mode="range" id="start_date"
+                                        formControlName="start_date">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-12" id="event-time">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Start Time</label>
-                                        <div class="input-group">
-                                            <input class="form-control flatpickr-input" type="text"
-                                                placeholder="Select start time" mwlFlatpickr [noCalendar]="true"
-                                                [enableTime]="true" [dateFormat]="'H:i'" formControlName="start_time">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">End Time</label>
-                                        <div class="input-group">
-                                            <input class="form-control flatpickr-input" type="text"
-                                                placeholder="Select end time" mwlFlatpickr [noCalendar]="true"
-                                                [enableTime]="true" [dateFormat]="'H:i'" formControlName="end_time">
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col col-6">
+                            <div class="text-center">
+                                <label class="form-label">
+                                    <h5><b><u>Start Time</u></b></h5>
+                                </label>
+                                <input type="time" class="form-control" formControlName="start_time">
                             </div>
                         </div>
-                        <!--end col-->
+                        <div class="col col-6">
+                            <div class="text-center">
+                                <label class="form-label">
+                                    <h5><b><u>End Time</u></b></h5>
+                                </label>
+                                <input type="time" class="form-control" formControlName="end_time">
+                            </div>
+                        </div>
 
                         <div class="col-12">
                             <div class="mb-3">
@@ -123,7 +115,8 @@
 
                     </div>
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="submit" class="btn btn-success" id="btn-save-event" (click)="onSubmit()">Add Event</button>
+                        <button type="submit" class="btn btn-success" id="btn-save-event" (click)="onSubmit()">Add
+                            Event</button>
                     </div>
                 </form>
             </div>
@@ -133,24 +126,25 @@
         <!-- Edit event modal -->
         <ng-template #editmodalShow let-modal>
             <div class="modal-header p-3 bg-soft-info">
-                <h5 class="modal-title" id="modal-title">All Day Event</h5>
+                <h5 class="modal-title" id="modal-title">Edit Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"
                     (click)="modal.dismiss('Cross click')"></button>
             </div>
             <div class="modal-body p-4">
-                <form [formGroup]="formEditData" (ngSubmit)="editEventSave()">
+                <!-- (ngSubmit)="editEventSave()" -->
+                <form [formGroup]="formEditData">
                     <div class="row event-form">
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">Type</label>
-                                <select class="form-control" name="ecategory" formControlName="editCategory" required>
-                                    <option *ngFor="let option of category" value="{{ option.value }}">
+                                <select class="form-control" name="editCategory" formControlName="editCategory"
+                                    required>
+                                    <option *ngFor="let option of category" [ngValue]="option.name">
                                         {{ option.name }}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <!--end col-->
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">Event Name</label>
@@ -159,16 +153,42 @@
                             </div>
                         </div>
                         <div class="col-12">
+                            <!-- <div class="mb-3">
+                        <label class="form-label">Event Date</label>
+                        <div class="input-group">
+                            <input class="form-control flatpickr-input" type="text" mwlFlatpickr name="editDate"
+                                formControlName="editDate" [altInput]="true" [convertModelValue]="true"
+                                placeholder="Select date">
+                        </div>
+                    </div> -->
+                            <!-- <div class="mb-3">
+                        <label>Event Date</label>
+                        <div class="input-group">
+                            <input class="form-control flatpickr-input form-control-solid" 
+                            type="text" 
+                            mwlFlatpickr 
+                            data-provider="flatpickr"
+                            data-date-format="d M, Y"
+                            [altInput]="true"
+                            [convertModelValue]="true"
+                            mode="range" 
+                            name="editDate" 
+                            formControlName="editDate">
+                        </div>
+                    </div> -->
                             <div class="mb-3">
-                                <label>Event Date</label>
-                                <div class="input-group">
-                                    <input class="form-control flatpickr-input" type="text" mwlFlatpickr name="editDate"
-                                        formControlName="editDate" [altInput]="true" [convertModelValue]="true"
-                                        placeholder="Select date">
-                                </div>
+                                <label>Start Date</label>
+                                <input type="text" class="form-control flatpickr-input form-control-solid" mwlFlatpickr
+                                    data-provider="flatpickr" data-date-format="d M, Y" [altInput]="true"
+                                    [convertModelValue]="true" name="editStartDate" formControlName="editStartDate">
+                            </div>
+                            <div class="mb-3">
+                                <label>End Date</label>
+                                <input type="text" class="form-control flatpickr-input form-control-solid" mwlFlatpickr
+                                    data-provider="flatpickr" data-date-format="d M, Y" [altInput]="true"
+                                    [convertModelValue]="true" name="editEndDate" formControlName="editEndDate">
                             </div>
                         </div>
-
                         <div class="col-12" id="event-time">
                             <div class="row">
                                 <div class="col-6">
@@ -195,17 +215,15 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="event-location">Location</label>
                                 <div>
-                                    <input type="text" class="form-control" name="editlocation"
-                                        formControlName="editlocation" placeholder="Event location">
+                                    <input type="text" class="form-control" name="editLocation"
+                                        formControlName="editLocation" placeholder="Event location">
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
@@ -214,14 +232,15 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-soft-danger" id="btn-delete-event" (click)="confirm()"><i
-                                class="ri-close-line align-bottom"></i> Delete</button>
-                        <button type="submit" class="btn btn-success" id="btn-save-event">Update Event</button>
+                        <button type="button" class="btn btn-soft-danger" id="btn-delete-event" (click)="confirm(editEventId)"><i
+                        class="ri-close-line align-bottom"></i> Delete</button>
+                        <button type="submit" class="btn btn-success" id="btn-save-event"
+                            (click)="editEventSave()">Update Event</button>
                     </div>
                 </form>
             </div>
         </ng-template>
+
     </div>
 </div>

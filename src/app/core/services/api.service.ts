@@ -171,6 +171,26 @@ export class ApiService {
     (environment.API_URL + `master/schedule`, {form_data : data}, 
     this.httpOptions())
   }
+  getByIdSchedule(id: number){
+    return this.httpClient.get<any>
+    (environment.API_URL + `/master/schedule/${id}`, 
+    this.httpOptions())
+  }
+
+  updateschedule(id: number, data: any) {
+    return this.httpClient.put<any>(
+      environment.API_URL + '/master/schedule/'+id,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
+
+  deleteschedule(id: number) {
+    return this.httpClient.delete<any>(
+      environment.API_URL + '/master/schedule/'+id,
+      this.httpOptions()
+    );
+  }
 
   // abnormal Endpoints
   getAllabnormal() {
@@ -190,6 +210,7 @@ export class ApiService {
     (environment.API_URL + `/master/abnormal`, {form_data : data}, 
     this.httpOptions())
   }
+  
   updatereset(id: number, data: any) {
     return this.httpClient.put<any>(
       environment.API_URL + environment.historyId + id,
@@ -212,13 +233,5 @@ export class ApiService {
       this.httpOptions()
     );
   }
-
-  // updateProfile(data: any) {
-  //   return this.httpClient.put<any>(
-  //     environment.API_URL + environment.image_user,
-  //     { form_data: data },
-  //     this.httpOptions()
-  //   );
-  // }
 
 }

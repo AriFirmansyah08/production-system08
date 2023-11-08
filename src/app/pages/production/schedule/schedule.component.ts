@@ -1,23 +1,18 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-
 // Calendar option
-import { CalendarOptions, EventClickArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg, EventApi,} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-
 // BootStrap
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-
 // Sweet Alert
 import Swal from 'sweetalert2';
-
-// Calendar Services
-import { restApiService } from "../../../core/services/rest-api.service";
-import { DatePipe } from '@angular/common';
 import { ApiService } from 'src/app/core/services/api.service';
+import { Const } from 'src/app/core/services/static/const';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-schedule',
@@ -33,67 +28,68 @@ export class ScheduleComponent implements OnInit {
   calendarEvents!: any[];
   editEvent: any;
   formEditData!: UntypedFormGroup;
-  newEventDate: any;
   submitted = false;
   scheduleData: any;
   isConnected: boolean | undefined;
+  id: any
 
-  category=[
+  eventData: any[] = []
+  taskData: any
+  loading: boolean = false
+  newEventDate: any = { startStr: '' }; // Inisialisasi dengan nilai yang sesuai
+
+  category = [
   {
       name: 'Major',
-      value: 'bg-soft-danger',
-      option: ""
+      value: '#F20B0B',
+      className:'bg-soft-success'
   },
   {
       name: 'Very High',
-      value: 'bg-soft-success',
-      option: ""
+      value: '#ff7c2a',
+      className:''
   },
   {
       name: 'High',
-      value: 'bg-soft-primary',
-      option: ""
+      value: '#8af42e',
+      className:''
   },
   {
       name: 'Medium',
-      value: 'bg-soft-info',
-      option: ""
+      value: '#6ff6ee',
+      className:''
   },
   {
       name: 'Low',
-      value: 'bg-soft-dark',
-      option: ""
+      value: '#fffe02',
+      className:''
   },
   {
       name: 'Very Low',
-      value: 'bg-soft-warning',
-      option: ""
+      value: '#9edceb',
+      className:''
   }
   ]
-
-  // Calendar click Event
-  formData!: UntypedFormGroup;
-  @ViewChild('editmodalShow') editmodalShow!: TemplateRef<any>;
-  @ViewChild('modalShow') modalShow !: TemplateRef<any>;
 
     // Schedule click Event
     formDataSchedule!: UntypedFormGroup;
     @ViewChild('editmodalShow') editmodal!: TemplateRef<any>;
     @ViewChild('modalShow') openmodal !: TemplateRef<any>;
-
+    editEventId!: string;
+    DataById!: any;
 
   constructor(
     private modalService: NgbModal, 
     private formBuilder: UntypedFormBuilder,
-    private datePipe: DatePipe, 
-    public apiService: ApiService) { }
+    public apiService: ApiService,
+    public common: CommonService) {}
 
-  ngOnInit(): void {
-    this.getAllSchedule()
-    this.breadCrumbItems = [
-      { label: 'Production' },
-      { label: 'Schedule', active: true }
-    ];
+    async ngOnInit() {
+      this.breadCrumbItems = [
+        { label: "Planner" },
+        { label: "Tasks", active: true },
+      ];
+      await this.getAllSchedule().finally(() => this.loading = false);
 
     // Validation
     this.formDataSchedule = this.formBuilder.group({
@@ -101,21 +97,21 @@ export class ScheduleComponent implements OnInit {
       category: ['', [Validators.required]],
       location: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      event_date: ['', Validators.required],
+      start_date: ['', Validators.required],
       start_time: ['', Validators.required],
       end_time: ['', Validators.required]
     });
 
-    interface EventData {
-      event_name: string;
-      category: string;
-      location: string;
-      description: string;
-      event_date: string;
-      start_time: string;
-      end_time: string;
-    } 
-    
+    this.formEditData = this.formBuilder.group({
+      editTitle: [null], // Nilai default untuk semua bidang
+      editCategory: [null],
+      editLocation: [null],
+      editDescription: [null],
+      editStartDate: [null],
+      editEndDate: [null],
+      editStart: [null],
+      editEnd: [null],
+    });
   }
 
   calendarOptions: CalendarOptions = {
@@ -143,31 +139,28 @@ export class ScheduleComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
   };
-  currentEvents: EventApi[] = [];
 
-  /**
-   * Event add modal
-   */
+  currentEvents: EventApi[] = [];
   openModal(event?: any) {
     this.newEventDate = event;
-    this.modalService.open(this.modalShow, { centered: true });
+    this.modalService.open(this.openmodal, { centered: true });
   }
 
-  /**
-   * Event click modal show
-   */
-  handleEventClick(clickInfo: EventClickArg) {
-    this.editEvent = clickInfo.event;
-    this.formEditData = this.formBuilder.group({
-      editTitle: clickInfo.event.title,
-      editCategory: clickInfo.event.classNames[0],
-      editlocation: clickInfo.event.extendedProps['location'],
-      editDescription: clickInfo.event.extendedProps['description'],
-      editDate: clickInfo.event.start,
-      editStart: clickInfo.event.start,
-      editEnd: clickInfo.event.end,
+  closeEventModal() {
+    this.formDataSchedule = this.formBuilder.group({
+      event_name: '',
+      category: '',
+      location: '',
+      description: '',
+      start_date: '',
+      start_time: '',
+      end_time: ''
     });
-    this.modalService.open(this.editmodalShow, { centered: true });
+    this.modalService.dismissAll();
+  }
+
+  get form() {
+    return this.formDataSchedule.controls;
   }
 
   /**
@@ -177,182 +170,294 @@ export class ScheduleComponent implements OnInit {
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
   }
-
-
-  /**
-   * Close event modal
-   */
-  closeEventModal() {
-    this.formDataSchedule = this.formBuilder.group({
-      event_name: '',
-      category: '',
-      location: '',
-      description: '',
-      event_date: '',
-      start_time: '',
-      end_time: ''
-    });
-    this.modalService.dismissAll();
-  }
-
-  /***
-   * Model Position Set
-   */
-  position() {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Event has been saved',
-      showConfirmButton: false,
-      timer: 1000,
-    });
-  }
-
-  /***
-   * Model Edit Position Set
-   */
-  Editposition() {
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Event has been Updated',
-      showConfirmButton: false,
-      timer: 1000,
-    });
-  }
-
-  /**
-   * Event Data Get
-   */
-  get form() {
-    return this.formDataSchedule.controls;
-  }
-
-  saveEvent() {
-    if (this.formData.valid) {
-      const className = this.formData.get('category')!.value;
-      const title = this.formData.get('title')!.value;
-      const location = this.formData.get('location')!.value;
-      const description = this.formData.get('description')!.value
-      const date = this.formData.get('date')!.value
-      const starttime = this.formData.get('start')!.value;
-      const endtime = this.formData.get('end')!.value;
-      const yy = new Date(date).getFullYear();
-      const mm = new Date(date).getMonth() + 1;
-      const dd = new Date(date).getDate();
-
-      const end = new Date(mm + '-' + dd + '-' + yy);
-      end.setHours((endtime.split(' ')[0]).split(':')[0]);
-      end.setMinutes((endtime.split(' ')[0]).split(':')[1]);
-
-      const start = new Date(mm + '-' + dd + '-' + yy);
-      start.setHours((starttime.split(' ')[0]).split(':')[0]);
-      start.setMinutes((starttime.split(' ')[0]).split(':')[1]);
-      const calendarApi = this.newEventDate.view.calendar;
-
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        date,
-        start,
-        end,
-        location,
-        description,
-        className: className + ' ' + 'text-white'
-      });
-      this.position();
-      this.formData = this.formBuilder.group({
-        title: '',
-        category: '',
-        location: '',
-        description: '',
-        date: '',
-        start: '',
-        end: ''
-      });
-      this.modalService.dismissAll();
-    } else {
-    }
-    this.submitted = true;
-  }
-
-
   saveData() {
-    if (this.formData.valid) {
-      const className = this.formDataSchedule.get('category')!.value;
-      const event_name = this.formDataSchedule.get('event_name')!.value;
-      const location = this.formDataSchedule.get('location')!.value;
-      const description = this.formDataSchedule.get('description')!.value
-      const event_date = this.formDataSchedule.get('event_date')!.value
-      const start_time = this.formDataSchedule.get('start_time')!.value;
-      const end_time = this.formDataSchedule.get('end_time')!.value;
-      const yy = new Date(event_date).getFullYear();
-      const mm = new Date(event_date).getMonth() + 1;
-      const dd = new Date(event_date).getDate();
+    if (this.formDataSchedule.valid) {
+        const className = this.formDataSchedule.get('category')!.value;
+        const event_name = this.formDataSchedule.get('event_name')!.value;
+        const location = this.formDataSchedule.get('location')!.value;
+        const description = this.formDataSchedule.get('description')!.value;
+        const start_date = this.formDataSchedule.get('start_date')!.value;
+        const end_date = this.formDataSchedule.get('end_date')!.value;
+        const start_time = this.formDataSchedule.get('start_time')!.value;
+        const end_time = this.formDataSchedule.get('end_time')!.value;
+        const start = new Date(`${start_date}T${start_time}`);
+        const end = new Date(`${end_date}T${end_time}`);
+        if (end <= start) {
+            alert('Tanggal selesai harus lebih besar dari tanggal mulai.');
+        } else {
+            const calendarApi = this.scheduleData.view.calendar;
+            calendarApi.addEvent({
+                title: event_name,
+                start: start,
+                end: end,
+                location: location,
+                description: description,
+                className: className + ' bold-text'
+            });
 
-      const end = new Date(mm + '-' + dd + '-' + yy);
-      end.setHours((end_time.split(' ')[0]).split(':')[0]);
-      end.setMinutes((end_time.split(' ')[0]).split(':')[1]);
-
-      const start = new Date(mm + '-' + dd + '-' + yy);
-      start.setHours((start_time.split(' ')[0]).split(':')[0]);
-      start.setMinutes((start_time.split(' ')[0]).split(':')[1]);
-
-      const calendarApi = this.scheduleData.view.calendar;
-      console.log(this.scheduleData);
-      
-
-      calendarApi.addEvent({
-        event_name,
-        event_date,
-        start_time,
-        end_time,
-        location,
-        description,
-        className: className + ' ' + 'text-white'
-      });
-      this.position();
-      this.formDataSchedule = this.formBuilder.group({
-        event_name: '',
-        category: '',
-        location: '',
-        description: '',
-        event_date: '',
-        start_time: '',
-        end_time: ''
-      });
-      this.modalService.dismissAll();
-    } else {
+            this.position();
+            this.formDataSchedule.reset(); // Reset form setelah disubmit
+            this.modalService.dismissAll();
+        }
     }
     this.submitted = true;
-  }
+}
 
-  editEventSave() {
-    const editTitle = this.formEditData.get('editTitle')!.value;
-    const editCategory = this.formEditData.get('editCategory')!.value;
 
-    const editId = this.calendarEvents.findIndex(
-      (x) => x.id + '' === this.editEvent.id + ''
-    );
+// onSubmit() {
+//   if (this.formDataSchedule.valid) {
+//     const formData = { ...this.formDataSchedule.value };
+//     if (!formData.start_date.to) {
+//       formData.start_date.to = null;
+//     }
+//     console.log('data tersimpan', formData);
+//     const eventStartDate = new Date(formData.start_date.from);
+//     const eventEndDate = formData.start_date.to ? new Date(formData.start_date.to) : null;
+//     eventStartDate.setDate(eventStartDate.getDate() + 1);
+//     if (eventEndDate) {
+//       eventEndDate.setDate(eventEndDate.getDate() + 1);
+//     }
+//     formData.start_date = eventStartDate;
+//     formData.end_date = eventEndDate;
+//     this.apiService.insertschedule(formData).subscribe({
+//       next: (res: any) => {
+//         if (res.status) {
+//           this.modalService.dismissAll();
+//           window.location.reload();
+//         }
+//       },
+//       error: (err: any) => console.error(err)
+//     });
+//   }
+// }
 
-    this.editEvent.setProp('title', editTitle);
-    this.editEvent.setProp('classNames', editCategory);
-
-    this.calendarEvents[editId] = {
-      ...this.editEvent,
-      title: editTitle,
-      id: this.editEvent.id,
-      classNames: editCategory,
-    };
-    this.Editposition();
-    this.formEditData = this.formBuilder.group({
-      editTitle: '',
-      editCategory: '',
+onSubmit() {
+  if (this.formDataSchedule.valid) {
+    const formData = { ...this.formDataSchedule.value };
+    if (!formData.start_date.to) {
+      formData.start_date.to = formData.start_date.from; // Set nilai to ke from jika tidak ada
+    }
+    console.log('data tersimpan', formData);
+    const eventStartDate = new Date(formData.start_date.from);
+    const eventEndDate = new Date(formData.start_date.to);
+    eventStartDate.setDate(eventStartDate.getDate() + 1);
+    eventEndDate.setDate(eventEndDate.getDate() + 1);
+    formData.start_date = eventStartDate;
+    formData.end_date = eventEndDate;
+    this.apiService.insertschedule(formData).subscribe({
+      next: (res: any) => {
+        if (res.status) {
+          this.modalService.dismissAll();
+          window.location.reload();
+        }
+      },
+      error: (err: any) => console.error(err)
     });
-    this.modalService.dismissAll();
   }
+}
 
-  confirm() {
+// async getAllSchedule() {
+//   return new Promise((resolve, reject) => {
+//     this.apiService.getAllschedule().subscribe({
+//       next: (res: any) => {
+//         const data: any[] = res.data;
+//         const itemData: any[] = [];
+//         console.log('data item', itemData);
+//         for (let item of data) {
+//           if (!itemData.includes(item.id_schedule)) {
+//             itemData.push(item.id_schedule);
+//           }
+//         }
+//         if (itemData.length > 0) {
+//           data.forEach((schedule: any) => {
+//             const selectedCategory = this.category.find(cat => cat.name === schedule.category);
+//             if (selectedCategory) {
+//                 const serverStartDate = new Date(schedule.start_date);
+//                 const serverEndDate = new Date(schedule.end_date);
+//                 // Mengonversi zona waktu ke "Asia/Jakarta"
+//                 serverStartDate.setHours(serverStartDate.getHours() + 7);
+//                 serverEndDate.setHours(serverEndDate.getHours() + 7);
+//                 this.eventData.push({
+//                     id: schedule.id_schedule,
+//                     start: serverStartDate,
+//                     end: serverEndDate,
+//                     title: `${schedule.event_name}`,
+//                     allDay: false,
+//                     backgroundColor: selectedCategory.value,
+//                     allData: {
+//                         category: schedule.category,
+//                         description: schedule.description,
+//                         end_date: serverEndDate.toISOString(),
+//                         end_time: schedule.end_time,
+//                         event_name: schedule.event_name,
+//                         id_schedule: schedule.id_schedule,
+//                         location: schedule.location,
+//                         start_date: serverStartDate.toISOString(),
+//                         start_time: schedule.start_time,
+//                     }
+//                 });
+//             }
+//         });
+//         }
+//       },
+//       error: (err: string | undefined) => {
+//         reject(err);
+//         this.common.showServerErrorAlert(Const.ERR_GET_MSG("schedule"), err);
+//       },
+//       complete: () => {
+//         console.log('All Data');
+//         this.calendarOptions.events = this.eventData;
+//         console.log('data masuk id', this.calendarOptions.events);
+//         resolve(true);
+//       }
+//     });
+//   });
+// }
+
+getAllSchedule() {
+  return new Promise((resolve, reject) => {
+    this.apiService.getAllschedule().subscribe({
+      next: (res: any) => {
+        const data: any[] = res.data;
+        const itemData: any[] = [];
+        console.log('data item', itemData);
+        for (let item of data) {
+          if (!itemData.includes(item.id_schedule)) {
+            itemData.push(item.id_schedule);
+          }
+        }
+        if (itemData.length > 0) {
+          data.forEach((schedule: any) => {
+            const selectedCategory = this.category.find(cat => cat.name === schedule.category);
+            if (selectedCategory) {
+              const serverStartDate = new Date(schedule.start_date);
+              const serverEndDate = new Date(schedule.end_date);
+              // Mengonversi zona waktu ke "Asia/Jakarta"
+              serverStartDate.setHours(serverStartDate.getHours() + 7);
+              serverEndDate.setHours(serverEndDate.getHours() + 7);
+              this.eventData.push({
+                id: schedule.id_schedule,
+                start: serverStartDate,
+                end: serverEndDate,
+                title: `${schedule.event_name}`,
+                allDay: false,
+                backgroundColor: selectedCategory.value,
+                allData: {
+                  category: schedule.category,
+                  description: schedule.description,
+                  end_date: serverEndDate.toISOString(),
+                  end_time: schedule.end_time,
+                  event_name: schedule.event_name,
+                  id_schedule: schedule.id_schedule,
+                  location: schedule.location,
+                  start_date: serverStartDate.toISOString(),
+                  start_time: schedule.start_time,
+                },
+                overlap: false, // Menonaktifkan tumpang tindih
+              });
+            }
+          });
+        }
+      },
+      error: (err: string | undefined) => {
+        reject(err);
+        this.common.showServerErrorAlert(Const.ERR_GET_MSG("schedule"), err);
+      },
+      complete: () => {
+        console.log('All Data');
+        this.calendarOptions.events = this.eventData;
+        console.log('data masuk id', this.calendarOptions.events);
+        resolve(true);
+      }
+    });
+  });
+}
+
+
+
+
+handleEventClick(clickInfo: EventClickArg) {
+  this.editEventId = clickInfo.event.id;
+  this.editEvent = clickInfo.event;
+  this.getByIdSchedule(this.editEventId);
+
+}
+
+getByIdSchedule(id: any) {
+  console.log('Id', id);
+  this.apiService.getByIdSchedule(id).subscribe({
+    next: (res: any) => {
+      this.DataById = res[0];
+      const startDate = new Date(this.DataById.start_date);
+      const endDate = new Date(this.DataById.end_date);
+      console.log('Data ID ', this.DataById);
+      const startDateWIB = new Date(this.DataById.start_date);
+      startDateWIB.setHours(startDateWIB.getHours());
+      const endDateWIB = new Date(this.DataById.end_date);
+      endDateWIB.setHours(endDateWIB.getHours());
+      const startTimeFormatted = this.DataById.start_time;
+      const endTimeFormatted = this.DataById.end_time;
+      this.formEditData.get('editTitle')?.setValue(this.DataById.event_name || '');
+      this.formEditData.get('editCategory')?.setValue(this.DataById.category || '');
+      this.formEditData.get('editLocation')?.setValue(this.DataById.location || '');
+      this.formEditData.get('editDescription')?.setValue(this.DataById.description || '');
+
+      this.formEditData.get('editStartDate')?.setValue(startDate);
+      this.formEditData.get('editEndDate')?.setValue(endDate);
+      this.formEditData.get('editStart')?.setValue(startTimeFormatted);
+      this.formEditData.get('editEnd')?.setValue(endTimeFormatted);
+      this.modalService.open(this.editmodal, { centered: true });
+    },
+    error: (err: any) => {
+      console.error(err);
+      setTimeout(() => {
+      }, 1000);
+    },
+  });
+}
+
+editEventSave() {
+  if (this.formEditData.valid) {
+    const updatedData = this.formEditData.value;
+    const updatedEventData = {
+      event_name: updatedData.editTitle,
+      category: updatedData.editCategory,
+      location: updatedData.editLocation,
+      description: updatedData.editDescription,
+      start_date: new Date(updatedData.editStartDate), // Konversi ke objek Date
+      end_date: updatedData.editEndDate ? new Date(updatedData.editEndDate) : null, // Konversi ke objek Date atau beri nilai null jika tidak ada
+      start_time: updatedData.editStart,
+      end_time: updatedData.editEnd,
+    };
+    // Handle zona waktu di sini sesuai kebutuhan
+    // Misalnya, jika Anda ingin menghitung dengan zona waktu "Asia/Jakarta":
+    updatedEventData.start_date.setHours(updatedEventData.start_date.getHours() - 7); // Kurangi 7 jam
+    if (updatedEventData.end_date) {
+      updatedEventData.end_date.setHours(updatedEventData.end_date.getHours() - 7);
+    }
+
+    if (updatedEventData.start_date) {
+      updatedEventData.start_date.setDate(updatedEventData.start_date.getDate() + 1);
+    }
+    if (updatedEventData.end_date) {
+      updatedEventData.end_date.setDate(updatedEventData.end_date.getDate() + 1);
+    }
+    this.apiService.updateschedule(this.DataById.id_schedule, updatedEventData).subscribe(
+      (res) => {
+        console.log('Event updated successfully', res);
+        this.modalService.dismissAll();
+          window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating event', error);
+      }
+    );
+  }
+}
+
+  confirm(id: any) {
+    console.log('id yang di klik', id);
+    
     Swal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -363,59 +468,32 @@ export class ScheduleComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.value) {
-        this.deleteEventData();
-        Swal.fire('Deleted!', 'Event has been deleted.', 'success');
+        this.deleteEventData(id); // Menggunakan parameter 'id' yang telah Anda terima
       }
     });
   }
 
-  deleteEventData() {
-    this.editEvent.remove();
-    this.modalService.dismissAll();
-  }
-
-  getAllSchedule() {
-    this.isConnected = true;
-    this.apiService.getAllschedule().subscribe({
+  deleteEventData(id: any) {
+    this.apiService.deleteschedule(id).subscribe({
       next: (res: any) => {
-        if (res.status) {
-          this.scheduleData = res.data;
-          this.calendarOptions.initialEvents = this.scheduleData.map(
-            (evt:any) => {
-              return { date: evt.event_date, title: evt.event_name,className:"bg-soft-primary",location:evt.location,descriptiocalendarEventscalendarEventsn:evt.description }
-            }) 
-            console.log('option',this.calendarOptions);
-            
-        } else {
-          console.error(`${res.data.message}`);
-          setTimeout(() => {
-            this.isConnected = false;
-          }, 1000);
+        if (res.data === 1) {
+          this.modalService.dismissAll();
+          window.location.reload();
         }
       },
-      error: (err: any) => {
-        console.error(err);
-        setTimeout(() => {
-          this.isConnected = false;
-        }, 1000);
-      },
+      error: (err: any) => console.error(err),
     });
   }
 
-  onSubmit(){
-    this.apiService.insertschedule(this.formDataSchedule.value).subscribe({
-      next: (res: any) => {
-        if (res.status) {
-          this.modalService.dismissAll()
-          this.ngOnInit()
-        }         
-      },
-      error: (err: any) => console.error(err)
+  position() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Event has been saved',
+      showConfirmButton: false,
+      timer: 1000,
     });
   }
+}
 
-}
-function createEventId() {
-  throw new Error('Function not implemented.');
-}
 

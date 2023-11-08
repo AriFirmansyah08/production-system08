@@ -32,12 +32,16 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { DndModule } from 'ngx-drag-drop';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
+import { LOCALE_ID } from '@angular/core';
+import { CalendarComponent } from './calendar/calendar.component';
+
 
 @NgModule({
   declarations: [
     MyappsComponent,
     MyappsModalComponent,
     ScheduleComponent,
+    CalendarComponent,
     
   ],
   imports: [
@@ -49,7 +53,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     ScrollSpyModule.forRoot(),
     NgbDropdownModule,
     NgbRatingModule,
-    SimplebarAngularModule,
     SharedModule,
     NgxUsefulSwiperModule,
     InViewportModule,
@@ -65,7 +68,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     NgbPaginationModule,
     NgbCollapseModule,
     FeatherModule.pick(allIcons),
-    FullCalendarModule,
     FlatpickrModule.forRoot(),
     SimplebarAngularModule,
     CKEditorModule,
@@ -82,6 +84,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
   providers: [
     DatePipe,
     provideNgxMask(),
+    { provide: LOCALE_ID, useValue: 'id-ID' },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

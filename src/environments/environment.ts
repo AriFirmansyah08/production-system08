@@ -17,7 +17,7 @@ export const environment= {
   //API URL
     API_URL: 'http://localhost:8880/api/',
     AUTH_URL: 'http://localhost:8880/api/auth/',
-
+    Time_URL: 'http://localhost:8880/api/time',
   //Api Login
     login: 'login',
 
@@ -54,5 +54,10 @@ export const environment= {
   //API History.
   history:'master/history',
   historyId:'master/history/',
+
+  //API Schedule
+  schedule:'master/schedule',
+  scheduleId:'master/schedule/',
+
 };
 

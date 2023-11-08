@@ -34,9 +34,6 @@ export class DailyHistoryComponent {
 
   ngOnInit(): void {
     this.getAllHistory()
-    /**
-    * BreadCrumb
-    */
     this.breadCrumbItems = [
       { label: 'Production', link: '/dashboard-prod' },
       { label: 'Report', link: '/production/report'},

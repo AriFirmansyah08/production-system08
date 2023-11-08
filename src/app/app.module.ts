@@ -20,10 +20,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LayoutsModule } from './layouts/layouts.module';
 import { LayoutCategoryModule } from './layout-category/layout-category.module';
 
-import { SliceWordsPipe } from './slice-words.pipe';
+
 import { CommonModule } from '@angular/common';
 import { HomeModule } from './pages/home/home.module';
 
+import { registerLocaleData } from '@angular/common';
+import id from '@angular/common/locales/id';
+registerLocaleData(id);
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -32,7 +35,6 @@ export function createTranslateLoader(http: HttpClient): any {
 @NgModule({
   declarations: [
     AppComponent,
-    // SliceWordsPipe,
 
   ],
   imports: [

@@ -43,6 +43,7 @@
     align-items: flex-end;
     transition: 0.4s ease-out;
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
   }
   .app-card:hover {
     transform: translateY(20px);
@@ -116,12 +117,6 @@
   }
   
   @media (max-width: 768px) {
-    // .bg-img {
-    //   height: 100%;
-    //   background-position: center;
-    //   background-repeat: no-repeat;
-    //   background-size: cover;
-    // }
   
     .transparent-card {
       padding: 30px;

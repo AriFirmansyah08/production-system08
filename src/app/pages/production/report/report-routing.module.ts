@@ -7,10 +7,6 @@ import { DailyHistoryComponent } from './daily-history/daily-history.component';
 import { EksportsComponent } from './eksports/eksports.component';
 
 const routes: Routes = [
-  // {
-  //   path:'',
-  //   component: ReportComponent
-  // },
   {
     path:'daily',
     component: DailyReportComponent,

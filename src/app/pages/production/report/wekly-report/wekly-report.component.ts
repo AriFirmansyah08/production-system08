@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/core/services/api.service';
+
+
 
 @Component({
   selector: 'app-wekly-report',
@@ -21,12 +24,14 @@ export class WeklyReportComponent implements OnInit{
   dailyDataById:any;
   leadersData: any;
   dataEdit: any[]=[];
+  serverTime: any;
 
   //contructor
   constructor(
     private modalService: NgbModal,
     private formBuilder: UntypedFormBuilder, 
-    private apiService: ApiService) {
+    private apiService: ApiService,
+    private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -35,6 +40,8 @@ export class WeklyReportComponent implements OnInit{
       { label: 'Report', link: '/production/report'},
       { label: 'Daily', active: true }
     ];
+
+    this.getCurrentTimeFromServer();
 
     // this.userData = this.AuthenticationService.getUserData();
     this.dailyReportForm = this.formBuilder.group({
@@ -53,6 +60,14 @@ export class WeklyReportComponent implements OnInit{
     this.getAllDaily()
     this.getAllLeaders()
   }
+
+  getCurrentTimeFromServer() {
+    this.http.get('http://localhost:8880/api/time').subscribe((data: any) => {
+      this.serverTime = data.currentTime;
+    });
+  }
+
+
 
   /**
    * Open modal
