@@ -1,33 +1,7 @@
     /**
      * Stat Counder Data
      */
-    const statData = [{
-      title: 'CAMPAIGN SENT',
-      value: 197,
-      icon: 'ri-space-ship-line',
-      profit: 'up'
-  }, {
-      title: 'ANNUAL PROFIT',
-      value: 489.4,
-      icon: 'ri-exchange-dollar-line',
-      profit: 'up'
-  }, {
-      title: 'LEAD COVERSATION',
-      value: 32.89,
-      icon: 'ri-pulse-line',
-      profit: 'down'
-  }, {
-      title: 'DAILY AVERAGE INCOME',
-      value: 1596.5,
-      icon: 'ri-trophy-line',
-      profit: 'up'
-  }, {
-      title: 'ANNUAL DEALS',
-      value: 2659,
-      icon: 'ri-service-line',
-      profit: 'down'
-  }
-  ];
+    
 
 
   const DealsStatus = [
@@ -221,4 +195,4 @@
   ];
 
 
-  export { statData, DealsStatus, UpcomingActivities, ClosingDeals };
+  export { DealsStatus, UpcomingActivities, ClosingDeals };

@@ -44,7 +44,6 @@ import { RouterModule } from '@angular/router';
     ContactComponent,
     FooterComponent,
     ScrollspyDirective,
- 
 
   ],
   imports: [

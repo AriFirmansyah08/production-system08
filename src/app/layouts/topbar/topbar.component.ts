@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CartModel } from './topbar.model';
 import { cartData } from './data';
 import { environment } from 'src/environments/environment';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-topbar',
@@ -36,6 +37,7 @@ export class TopbarComponent implements OnInit {
   total = 0;
   cart_length: any = 0;
   imageUrl: string =''
+  apps: any;
 
   constructor(@Inject(DOCUMENT) 
     private document: any, 
@@ -44,11 +46,18 @@ export class TopbarComponent implements OnInit {
     public _cookiesService: CookieService, 
     public translate: TranslateService, 
     private AuthenticationService: AuthenticationService, 
-    private router: Router) { }
+    private router: Router,
+    private apiService: ApiService) { }
 
   ngOnInit(): void {
-    // this.userData = this.TokenStorageService.getUser();
+    
+    // Mengakses nilai role_id dari userData
     this.userData = this.AuthenticationService.getUserData();
+    // Mengakses nilai role_id dari userData
+    if (this.userData) {
+      const userRoleId = this.userData.role_id;
+      console.log('Role ID TOP:', userRoleId);
+    }
     // this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
     this.imageUrl = `${environment.API_URL}${environment.getImage_user}${this.userData.photo}`
     this.element = document.documentElement;
@@ -70,6 +79,35 @@ export class TopbarComponent implements OnInit {
       var item_price = item.quantity * item.price
       this.total += item_price
     });
+  }
+
+  getAllApps() {
+    if (this.userData) {
+      const userRoleId = this.userData.role_id;
+      console.log('Role ID TOP:', userRoleId);
+      this.apiService.getCustomApps(this.userData.userRoleId).subscribe({
+        next: (res: any) => {
+          if (res.status) {
+            this.apps = res.data;
+            console.log('apps',this.apps);
+            
+          } else {
+            console.error(`${res.data.message}`);
+            setTimeout(() => {
+              
+            }, 1000);
+          }
+        },
+        error: (err: any) => {
+          console.error(err);
+          setTimeout(() => {
+            
+          }, 1000);
+        },
+      });
+    }
+      
+    
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClosingDeals, DealsStatus, UpcomingActivities, statData } from './data';
+import { ClosingDeals, DealsStatus, UpcomingActivities} from './data';
 
 
 @Component({
@@ -30,6 +30,29 @@ export class DashboardProdComponent implements OnInit {
       { label: 'Dashboard', active: true }
     ];
 
+    this.statData = [{
+        title: 'Produksi Line',
+        value: 197,
+        icon: 'ri-space-ship-line',
+        profit: 'up'
+    }, {
+        title: 'Line Efensiensi',
+        value: 32.89,
+        icon: 'ri-pulse-line',
+        profit: 'down'
+    }, {
+        title: 'AVERAGE PRODUCTION TODAY',
+        value: 1596.5,
+        icon: 'ri-trophy-line',
+        profit: 'up'
+    }, {
+        title: 'ANNUAL DEALS',
+        value: 2659,
+        icon: 'ri-service-line',
+        profit: 'down'
+    }
+    ];
+
     /**
      * Fetches the data
      */
@@ -40,6 +63,8 @@ export class DashboardProdComponent implements OnInit {
     this._DealTypeChart('["--vz-warning", "--vz-danger", "--vz-success"]');
     this._splineAreaChart('["--vz-success", "--vz-danger"]');
   }
+
+
 
     // Chart Colors Set
     private getChartColorsArray(colors:any) {
@@ -392,7 +417,7 @@ export class DashboardProdComponent implements OnInit {
    * Fetches the data
    */
    private fetchData() {
-    this.statData = statData;
+    this.statData = this.statData;
     this.DealsStatus = DealsStatus;
     this.UpcomingActivities = UpcomingActivities;
     this.ClosingDeals = ClosingDeals;

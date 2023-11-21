@@ -116,7 +116,6 @@ export class AddComponent implements OnInit {
     const endTimeValue = this.formSection.get('end_time')?.value;
   
     const postData = {
-      // date: currentDate,
       problem: problem.value,
       cause: cause.value,
       capa_currection: capa_currection.value,
@@ -173,7 +172,7 @@ export class AddComponent implements OnInit {
   
   /**
    * cancel sweet alert
-   * @param confir modal content
+   * @param confirm modal content
    */
   confirm() {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -214,40 +213,4 @@ export class AddComponent implements OnInit {
         }
       });
   }
-
-  cancelImgProblem() {
-    if (this.dropzone && this.dropzone.directiveRef) {
-      this.dropzone.directiveRef.reset();
-      this.img_problem = [];
-    }
-  }
-
-  cancelImgCause() {
-    if (this.dropzone && this.dropzone.directiveRef) {
-      this.dropzone.directiveRef.reset();
-      this.img_cause = [];
-    }
-  }
-
-  cancelImgCAPA() {
-    if (this.dropzone && this.dropzone.directiveRef) {
-      this.dropzone.directiveRef.reset();
-      this.img_capa_currection = [];
-    }
-  }
-
-  cancelImgCAPA_() {
-    if (this.dropzone && this.dropzone.directiveRef) {
-      this.dropzone.directiveRef.reset();
-      this.img_capa_currective = [];
-    }
-  }
-
-  cancelImgAction() {
-    if (this.dropzone && this.dropzone.directiveRef) {
-      this.dropzone.directiveRef.reset();
-      this.img_capa_currective = [];
-    }
-  }
-
 }

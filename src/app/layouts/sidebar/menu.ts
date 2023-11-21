@@ -1,5 +1,7 @@
 import { MenuItem } from './menu.model';
 
+
+
 export const MENU: MenuItem[] = [
   {
     id: 1,
@@ -8,127 +10,7 @@ export const MENU: MenuItem[] = [
     category : 'can',
     subCategory : 'maintenance'
   },
-  {
-    id: 2,
-    label: 'MENUITEMS.DASHBOARD.TEXT',
-    icon: 'ri-dashboard-2-line',
-    link: "dashboard-maint/",
-    category: 'can',
-    subCategory: 'maintenance'
-  },
-  {
-    id: 3,
-    label: 'MENUITEMS.APPS.TEXT',
-    icon: 'ri-recycle-fill',
-    link: 'myapps/',
-    category: 'can',
-    subCategory: 'maintenance'
-  },
-  {
-    id: 4,
-    label: 'Maintenance',
-    isTitle: true,
-    category: 'can',
-    subCategory: 'maintenance'
-  },
-  {
-    id: 5,
-    label: 'Preventive',
-    icon: 'ri-pencil-ruler-2-line',
-    category: 'can',
-    subCategory: 'maintenance',
-    subItems: [
-      {
-        id: 6,
-        label: 'Master Plan',
-        link: '/maintenance/master-plan',
-        parentId: 5
-      },
-      {
-        id: 7,
-        label: 'Schedule Maintenance',
-        parentId: 5,
-        subItems: [
-          {
-            id: 8,
-            label: 'Monthly',
-            link: '/maintenance/monthly',
-            parentId: 7
-          },
-          {
-            id: 9,
-            label: 'Yearly',
-            link: '/maintenance/yearly',
-            parentId: 7
-          },
-        ]
-      },
-    ]
-  },
-  {
-    id: 16,
-    label: 'Issue/ Abnormalitas',
-    icon: 'ri-pages-line',
-    category: 'can',
-    subCategory: 'maintenance',
-    subItems: [
-      {
-        id: 17,
-        label: 'KRM',
-        link: '/maintenance/krm',
-        parentId: 16
-      },
-      {
-        id: 18,
-        label: 'Report',
-        link: 'list',
-        parentId: 16
-      },
-    ]
-  },
-  {
-    id: 55,
-    label: 'Autonomous Maintenance',
-    icon: 'ri-account-circle-line',
-    category: 'can',
-    subCategory: 'maintenance',
-    subItems: [
-      {
-        id: 56,
-        label: 'Master Plan',
-        parentId: 49,
-        link : '/maintenance/master-plan-auto',
-      },
-      {
-        id: 59,
-        label: 'Weekly Cone',
-        parentId: 49,
-        link : '/maintenance/wekly',
-      },
-    ]
-  },
-  {
-    id: 82,
-    label: 'Impravement',
-    icon: 'ri-pages-line',
-    link: '/maintenance/impravement',
-    category: 'can',
-    subCategory: 'maintenance',
-    
-  },
-  {
-    id: 3,
-    label: 'Refresh',
-    icon: 'ri-refresh-line',
-    link: 'pages/gateway',
-    eventCLick:'onRemove',
-    category: 'can',
-    subCategory: 'maintenance'
-  },
-  //end menu
-
-
-
+  //end Menu
 
   {
     id: 1,
@@ -145,6 +27,15 @@ export const MENU: MenuItem[] = [
     category: 'can',
     subCategory: 'production'
   },
+
+  {
+    id: 2,
+    label: 'Dashboard Backup',
+    icon: 'ri-home-8-line',
+    link: "/dashboard-backup",
+    category: 'can',
+    subCategory: 'production'
+  },
   {
     id: 3,
     label: 'MENUITEMS.APPS.TEXT',
@@ -152,6 +43,15 @@ export const MENU: MenuItem[] = [
     link: 'production/myapps',
     category: 'can',
     subCategory: 'production'
+  },
+  {
+    id: 3,
+    label: 'Users',
+    icon: ' ri-user-line',
+    link: 'production/user',
+    category: 'can',
+    subCategory: 'production',
+    role_id: 1,
   },
   {
     id: 4,
@@ -170,12 +70,26 @@ export const MENU: MenuItem[] = [
     
   },
   {
-    id: 82,
+    id: 55,
     label: 'Schedule',
     icon: ' ri-calendar-event-line',
-    link: 'production/schedule',
     category: 'can',
     subCategory: 'production',
+
+    subItems: [
+      {
+        id: 56,
+        label: 'Calendar',
+        parentId: 49,
+        link : 'production/schedule/calendar',
+      },
+      {
+        id: 59,
+        label: 'Tabel',
+        parentId: 49,
+        link : 'production/schedule/tabel',
+      },
+    ]
   },
   {
     id: 55,
@@ -189,7 +103,20 @@ export const MENU: MenuItem[] = [
         id: 56,
         label: 'Daily',
         parentId: 49,
-        link : 'production/report/daily',
+        subItems: [
+          {
+            id: 56,
+            label: 'Proses',
+            parentId: 49,
+            link : 'production/report/daily/proses',
+          },
+          {
+            id: 56,
+            label: 'Activity',
+            parentId: 49,
+            link : 'production/report/daily/activity',
+          },
+        ]
       },
       {
         id: 59,
@@ -205,6 +132,26 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
+  {
+    id: 2,
+    label: 'MAPPING',
+    icon: ' ri-settings-3-line',
+    eventCLick:'onRemove',
+    category: 'can',
+    subCategory: 'production',
+    role_id: 1,
+  },
+  {
+    id: 2,
+    label: 'machine',
+    icon: ' ri-settings-3-line',
+    link: 'production/machine',
+    eventCLick:'onRemove',
+    category: 'can',
+    subCategory: 'production',
+    role_id: 1,
+  },
+
   {
     id: 3,
     label: 'Refresh',

@@ -55,6 +55,7 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutCategoryModule,
     PagesModule,
     HomeModule,
+    
 
 
   ],

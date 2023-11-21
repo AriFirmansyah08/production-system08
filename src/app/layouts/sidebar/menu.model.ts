@@ -11,4 +11,5 @@ export interface MenuItem {
   category?:string;
   subCategory?:string;
   eventCLick?:any;
+  role_id?:number;
 }

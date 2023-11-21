@@ -20,14 +20,14 @@ import { DatePipe } from '@angular/common';
 import { EksportsComponent } from './eksports/eksports.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'angular-archwizard';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { FormRoutingModule } from '../../form/form-routing.module';
+import { ProductionModule } from '../production.module';
+import { DailyActivityComponent } from './daily-activity/daily-activity.component';
 
 
 
@@ -38,13 +38,13 @@ import { FormRoutingModule } from '../../form/form-routing.module';
         MontlyReportComponent,
         DailyHistoryComponent,
         EksportsComponent,
+        DailyActivityComponent,
         
     ],
     imports: [
         CommonModule,
         ReportRoutingModule,
-        SharedModule,
-        FormsModule,
+        ProductionModule,
         ReactiveFormsModule,
         NgbDropdownModule,
         NgbTypeaheadModule,
@@ -61,10 +61,8 @@ import { FormRoutingModule } from '../../form/form-routing.module';
         NgxMaskPipe,
         NgxSliderModule,
         ArchwizardModule,
-        CKEditorModule,
         DropzoneModule,
         AutocompleteLibModule,
-        FormRoutingModule,
     ],
 
     providers: [

@@ -141,6 +141,35 @@ export class ApiService {
     this.httpOptions())
   }
 
+
+  //dail_activity
+  getAlldailyActivity() {
+    return this.httpClient.get<any>
+    (environment.API_URL + 'master/daily_activity', 
+    this.httpOptions())
+  }
+
+  insertDataActivity(data: any) {
+    return this.httpClient.post<any>
+    (environment.API_URL + `master/daily_activity`, {form_data : data}, 
+    this.httpOptions())
+  }
+
+  getByIdActivity(id: number){
+    return this.httpClient.get<any>
+    (environment.API_URL + `master/daily_activity/${id}`, 
+    this.httpOptions())
+  }
+
+  updateActivity(id: number, data: any) {
+    return this.httpClient.put<any>(
+      environment.API_URL + 'master/daily_activity/' + id,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
+
+
   getAllHistory() {
     return this.httpClient.get<any>
     (environment.API_URL + 'master/history', 
@@ -210,7 +239,7 @@ export class ApiService {
     (environment.API_URL + `/master/abnormal`, {form_data : data}, 
     this.httpOptions())
   }
-  
+
   updatereset(id: number, data: any) {
     return this.httpClient.put<any>(
       environment.API_URL + environment.historyId + id,
@@ -225,6 +254,32 @@ export class ApiService {
     this.httpOptions())
   }
 
+  getByIdMachine(id: number) {
+    return this.httpClient.get<any>(
+      environment.API_URL + `master/machine/${id}`, 
+      this.httpOptions())
+  }
+
+  deleteMachine(id: number) {
+    return this.httpClient.delete<any>(
+      environment.API_URL + '/master/machine/'+id,
+      this.httpOptions()
+    );
+  }
+
+  insertMachine(data: any) {
+    return this.httpClient.post<any>
+    (environment.API_URL + `master/machine`, {form_data : data}, 
+    this.httpOptions())
+  }
+
+  updatemachine(id: number, data: any) {
+    return this.httpClient.put<any>(
+      environment.API_URL + '/master/machine/'+id,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
 
   insertProfile(data: any) {
     return this.httpClient.post<any>(
@@ -234,4 +289,35 @@ export class ApiService {
     );
   }
 
+  //Weekly Report
+  getAllWeekly() {
+    return this.httpClient.get<any>
+    (environment.API_URL + 'master/weekly', 
+    this.httpOptions())
+  }
+
+  insertWeekly(data: any) {
+    return this.httpClient.post<any>
+    (environment.API_URL + `master/weekly`, {form_data : data}, 
+    this.httpOptions())
+  }
+
+  getByIdWeekly(id: number){
+    return this.httpClient.get<any>
+    (environment.API_URL + `master/weekly/${id}`, 
+    this.httpOptions())
+  }
+
+  //Users
+  getAllUsers() {
+    return this.httpClient.get<any>
+    (environment.API_URL + 'master/user', 
+    this.httpOptions())
+  }
+
+  insertUser(data: any) {
+    return this.httpClient.post<any>
+    (environment.API_URL + `master/user`, {form_data : data}, 
+    this.httpOptions())
+  }
 }

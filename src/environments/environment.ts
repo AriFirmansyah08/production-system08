@@ -35,7 +35,7 @@ export const environment= {
     getImageAbnormal: 'image/abnormal/',
     getImageUser: 'image/user/',
     Image_abnormal: 'master/image_abnormal/',
-    Imag_user: 'master/image_user',
+    Image_user: 'master/image_user',
     
   //API Images User
     image_user: 'master/image/',
@@ -58,6 +58,13 @@ export const environment= {
   //API Schedule
   schedule:'master/schedule',
   scheduleId:'master/schedule/',
+
+    //API Weekly
+    weekly:'master/weekly',
+    weeklyId:'master/weekly/',
+
+    activity:'master/activity',
+    activityId:'master/activity/'
 
 };
 

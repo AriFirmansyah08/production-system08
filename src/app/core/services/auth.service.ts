@@ -32,6 +32,19 @@
 
     isAdmin(): boolean {
         if (this.getUserData().role_id == 1) {
+            console.log('data admin',this.getUserData());
+        return true
+        } else return false
+    }
+
+    isStaff(): boolean {
+        if (this.getUserData().role_id == 2) {
+        return true
+        } else return false
+    }
+
+    isKaryawan(): boolean {
+        if (this.getUserData().role_id == 3) {
         return true
         } else return false
     }

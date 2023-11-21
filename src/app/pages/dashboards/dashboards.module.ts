@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbToastModule, NgbTypeaheadModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbToastModule, NgbTypeaheadModule, NgbPaginationModule, NgbAccordionModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Feather Icon
@@ -27,6 +27,7 @@ import { WidgetModule } from '../../shared/widget/widget.module';
 import { DashboardProdComponent } from './dashboard-prod/dashboard-prod.component';
 import { DashboardMaintComponent } from './dashboard-maint/dashboard-maint.component';
 import { BackupComponent } from './backup/backup.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -55,7 +56,14 @@ import { BackupComponent } from './backup/backup.component';
     NgbTypeaheadModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+
+    NgbAccordionModule,
+    NgbTooltipModule,
+    NgxUsefulSwiperModule,
+    NgSelectModule,
+    FlatpickrModule,
+    SharedModule,
   ]
 })
 export class DashboardsModule { }

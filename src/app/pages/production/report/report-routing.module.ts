@@ -5,11 +5,16 @@ import { WeklyReportComponent } from './wekly-report/wekly-report.component';
 import { MontlyReportComponent } from './montly-report/montly-report.component';
 import { DailyHistoryComponent } from './daily-history/daily-history.component';
 import { EksportsComponent } from './eksports/eksports.component';
+import { DailyActivityComponent } from './daily-activity/daily-activity.component';
 
 const routes: Routes = [
   {
-    path:'daily',
+    path:'daily/proses',
     component: DailyReportComponent,
+  },
+  {
+    path:'daily/activity',
+    component: DailyActivityComponent,
   },
   {
     path:'wekly',

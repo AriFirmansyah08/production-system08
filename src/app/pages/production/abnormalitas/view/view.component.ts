@@ -107,18 +107,20 @@ export class ViewComponent {
       console.log('data', this.abnormalData);
       console.log('filter', this.filteredAbnormalData);
     } else {
+      const searchTermLower = this.searchTerm.toLowerCase();
       this.filteredAbnormalData = this.abnormalData.filter((data: { id_abnormal: string, date: string, problem: string, cause: string, capa_currection: string, capa_currective: string, section: string }) => {
         return (
-          data.id_abnormal.toString().includes(this.searchTerm) ||
-          data.section.toString().includes(this.searchTerm) ||
-          data.date.toString().includes(this.searchTerm) ||
-          data.problem.toString().includes(this.searchTerm) ||
-          data.cause.toString().includes(this.searchTerm) ||
-          data.capa_currection.toString().includes(this.searchTerm) ||
-          data.capa_currective.toString().includes(this.searchTerm)
+          data.id_abnormal.toString().toLowerCase().includes(searchTermLower) ||
+          data.section.toString().toLowerCase().includes(searchTermLower) ||
+          data.date.toString().toLowerCase().includes(searchTermLower) ||
+          data.problem.toString().toLowerCase().includes(searchTermLower) ||
+          data.cause.toString().toLowerCase().includes(searchTermLower) ||
+          data.capa_currection.toString().toLowerCase().includes(searchTermLower) ||
+          data.capa_currective.toString().toLowerCase().includes(searchTermLower)
         );
       });
     }
   }
+
 }
 

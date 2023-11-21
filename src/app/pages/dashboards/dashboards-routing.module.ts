@@ -5,11 +5,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardProdComponent } from './dashboard-prod/dashboard-prod.component';
 import { DashboardMaintComponent } from './dashboard-maint/dashboard-maint.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BackupComponent } from './backup/backup.component';
 
 const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent
+  },
+  {
+    path: "dashboard-backup",
+    component: BackupComponent
   },
   {
     path: "dashboard-prod",

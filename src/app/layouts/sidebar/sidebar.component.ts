@@ -1,9 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,18 +17,57 @@ export class SidebarComponent implements OnInit {
   menuItems: MenuItem[] = [];
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
+  role_id: any;
+  userData: any;
+  
 
-  constructor(private router: Router, public translate: TranslateService) {
+  constructor(
+    private router: Router, 
+    public translate: TranslateService,
+    private AuthenticationService: AuthenticationService) {
     translate.setDefaultLang('en');
   }
 
+
   ngOnInit(): void {
     // Menu Items
-    // this.menuItems = MENU;
     const category = sessionStorage.getItem('category');
     const subCategory = sessionStorage.getItem('subCategory');
-    this.menuItems = MENU.filter((x:any)=> x.category == category && x.subCategory == subCategory)
+    
+    // Mengakses nilai role_id dari userData
+    this.userData = this.AuthenticationService.getUserData();
+    
+    // Menyaring item-menu berdasarkan category, subCategory, dan role_id
+    if (this.userData && this.userData.role_id === 1) {
+      // Jika role_id === 1, munculkan semua item-menu
+      this.menuItems = MENU.filter((x: any) => 
+        x.category === category && 
+        x.subCategory === subCategory
+      );
+    } else {
+      // Jika role_id bukan 1, hanya munculkan item-menu yang tidak memiliki role_id
+      this.menuItems = MENU.filter((x: any) => 
+        x.category === category && 
+        x.subCategory === subCategory && 
+        (x.role_id === undefined || x.role_id === null)
+      );
+    }
+  
+    // Mengakses nilai role_id dari userData
+    if (this.userData) {
+      const userRoleId = this.userData.role_id;
+      console.log('Role ID:', userRoleId);
+    }
+  
+    console.log('sidebar', this.menuItems);
+    console.log('role_id:', this.userData ? this.userData.role_id : null);
+    console.log('category:', category);
+    console.log('subCategory:', subCategory);
+    console.log('MENU:', MENU);
   }
+  
+  
+  
 
   /***
    * Activate droup down set
