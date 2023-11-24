@@ -25,7 +25,7 @@ const routes: Routes = [
     component: MontlyReportComponent,
   },
   {
-    path:'daily/history',
+    path:'daily/proses/history',
     component: DailyHistoryComponent,
   },
 

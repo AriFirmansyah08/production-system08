@@ -7,10 +7,7 @@ import { environment} from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  saveEvent() {
-    throw new Error('Method not implemented.');
-  }
-  
+
   apiUrl: any;
   public httpOptions(): any {
     return {
@@ -21,7 +18,6 @@ export class ApiService {
   }
 
   constructor(private httpClient: HttpClient) {}
-
   getCustomApps(userId: number) {
     return this.httpClient.get<any>(
       environment.API_URL + environment.userAppId + userId,
@@ -88,7 +84,6 @@ export class ApiService {
       this.httpOptions()
     );
   }
-
 
   deleteImage(filename: string) {
     return this.httpClient.delete<any>(
@@ -283,7 +278,7 @@ export class ApiService {
 
   insertProfile(data: any) {
     return this.httpClient.post<any>(
-      environment.API_URL + environment.image_user,
+      environment.API_URL + environment.getImageUser,
       { form_data: data },
       this.httpOptions()
     );
@@ -320,4 +315,32 @@ export class ApiService {
     (environment.API_URL + `master/user`, {form_data : data}, 
     this.httpOptions())
   }
+
+  getByIdUser(id: number){
+    return this.httpClient.get<any>
+    (environment.API_URL + `master/user/${id}`, 
+    this.httpOptions())
+  }
+
+  updateUser(id: number, data: any) {
+    return this.httpClient.put<any>(
+      environment.API_URL + '/master/user/'+id,
+      { form_data: data },
+      this.httpOptions()
+    );
+  }
+
+  getImageUser(filename: string) {
+    return this.httpClient.get<any>(
+      environment.API_URL + environment.getImageUser + filename,
+      this.httpOptions()
+    );
+  }
+
+  insertImageUser(file: any) {
+    return this.httpClient.post<any>(
+      environment.API_URL + environment.Image_user, file
+    );
+  }
+
 }

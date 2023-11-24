@@ -36,8 +36,11 @@ export class TopbarComponent implements OnInit {
   cartData!: CartModel[];
   total = 0;
   cart_length: any = 0;
-  imageUrl: string =''
   apps: any;
+  imageUrl: string | undefined;
+
+      // this.imageUrl = `${environment.API_URL}${environment.getImageUser}${this.userData.photo}`
+  
 
   constructor(@Inject(DOCUMENT) 
     private document: any, 
@@ -50,16 +53,15 @@ export class TopbarComponent implements OnInit {
     private apiService: ApiService) { }
 
   ngOnInit(): void {
-    
+    this.imageUrl = `${environment.API_URL}${environment.getImageUser}`;
     // Mengakses nilai role_id dari userData
     this.userData = this.AuthenticationService.getUserData();
-    // Mengakses nilai role_id dari userData
     if (this.userData) {
       const userRoleId = this.userData.role_id;
-      console.log('Role ID TOP:', userRoleId);
+      console.log('Role ID TOP tamplate:', userRoleId);
+      console.log('data user', this.userData);
     }
-    // this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
-    this.imageUrl = `${environment.API_URL}${environment.getImage_user}${this.userData.photo}`
+
     this.element = document.documentElement;
 
     // Cookies wise Language set
@@ -79,35 +81,6 @@ export class TopbarComponent implements OnInit {
       var item_price = item.quantity * item.price
       this.total += item_price
     });
-  }
-
-  getAllApps() {
-    if (this.userData) {
-      const userRoleId = this.userData.role_id;
-      console.log('Role ID TOP:', userRoleId);
-      this.apiService.getCustomApps(this.userData.userRoleId).subscribe({
-        next: (res: any) => {
-          if (res.status) {
-            this.apps = res.data;
-            console.log('apps',this.apps);
-            
-          } else {
-            console.error(`${res.data.message}`);
-            setTimeout(() => {
-              
-            }, 1000);
-          }
-        },
-        error: (err: any) => {
-          console.error(err);
-          setTimeout(() => {
-            
-          }, 1000);
-        },
-      });
-    }
-      
-    
   }
 
   /**

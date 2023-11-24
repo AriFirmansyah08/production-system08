@@ -48,7 +48,7 @@ export class TopbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = this.AuthenticationService.getUserData();
-    this.imageUrl = `${environment.API_URL}${environment.getImage}${this.userData.photo}`
+    this.imageUrl = `${environment.API_URL}${environment.getImageUser}`
     this.element = document.documentElement;
 
     // Cookies wise Language set

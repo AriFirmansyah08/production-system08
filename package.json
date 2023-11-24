@@ -53,6 +53,7 @@
     "bootstrap": "^5.2.3",
     "browserslist": "^4.21.4",
     "chart.js": "^4.4.0",
+    "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
     "echarts": "^5.4.1",
     "firebase": "^9.15.0",

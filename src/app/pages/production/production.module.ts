@@ -25,7 +25,6 @@ import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { DndModule } from 'ngx-drag-drop';
 import { NgxMaskDirective,  provideNgxMask } from 'ngx-mask';
 import { LOCALE_ID } from '@angular/core';
 import { MachineComponent } from './machine/machine.component';
@@ -73,6 +72,7 @@ import { UsersComponent } from './users/users.component';
     NgxMaskDirective, 
     NgbModule,
     
+    
   ],
   exports: [
     NgbModule,
@@ -88,6 +88,8 @@ import { UsersComponent } from './users/users.component';
     DatePipe,
     SimplebarAngularModule,
     SharedModule,
+
+    
   ],
   providers: [
     DatePipe,
