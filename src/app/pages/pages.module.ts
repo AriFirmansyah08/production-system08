@@ -9,6 +9,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimplebarAngularModule } from 'simplebar-angular';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 // Swiper Slider
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -25,11 +26,13 @@ import { DashboardComponent } from './dashboards/dashboard/dashboard.component';
 import { ToastsContainer } from './dashboards/dashboard/toasts-container.component';
 import { ProductionModule } from './production/production.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
+import { KartuStockComponent } from './kartu-stock/kartu-stock.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ToastsContainer,
+    KartuStockComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +50,7 @@ import { DashboardsModule } from './dashboards/dashboards.module';
     NgxUsefulSwiperModule,
     ProductionModule,
     DashboardsModule,
+    NgxQRCodeModule
   ],
 })
 export class PagesModule { 

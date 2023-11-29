@@ -91,6 +91,7 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
+
   {
     id: 55,
     label: 'Report',
@@ -118,24 +119,62 @@ export const MENU: MenuItem[] = [
           },
         ]
       },
+
       {
         id: 59,
         label: 'Weekly',
         parentId: 49,
-        link : 'production/report/wekly',
+        subItems: [
+          {
+            id: 56,
+            label: 'Activity',
+            parentId: 49,
+            link : 'production/report/wekly/activity',
+          },
+          {
+            id: 56,
+            label: 'Rakor MOM',
+            parentId: 49,
+            link : 'production/report/wekly/rakor',
+          },
+        ]
       },
+
       {
         id: 59,
-        label: 'Monthly',
+        label: 'Montly',
         parentId: 49,
-        link : 'production/report/montly',
+        subItems: [
+          {
+            id: 56,
+            label: 'pending Job',
+            parentId: 49,
+            link : 'production/report/montly/pendingjob',
+          },
+          {
+            id: 56,
+            label: 'Planning',
+            parentId: 49,
+            link : 'production/report/montly/planning',
+          },
+
+          {
+            id: 56,
+            label: 'Resume',
+            parentId: 49,
+            link : 'production/report/montly/resume',
+          },
+        ]
       },
+
     ]
   },
+
   {
     id: 2,
-    label: 'MAPPING',
+    label: 'Kartu Stock',
     icon: ' ri-settings-3-line',
+    link: 'kartustock',
     eventCLick:'onRemove',
     category: 'can',
     subCategory: 'production',
@@ -170,5 +209,6 @@ export const MENU: MenuItem[] = [
     icon: 'ri-refresh-line',
     link: '/pages/gateway',
     eventCLick:'onRemove',
+    
   },
 ];

@@ -19,7 +19,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ViewComponent } from './view/view.component';
 import { SliceWordsPipe } from 'src/app/slice-words.pipe';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import { ProductionModule } from '../production.module';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'angular-archwizard';
@@ -37,7 +36,7 @@ import { InViewportModule } from '@thisissoon/angular-inviewport';
     AddComponent,
     DetailComponent,
     ViewComponent,
-    SliceWordsPipe
+    
   ],
   imports: [
     CommonModule,

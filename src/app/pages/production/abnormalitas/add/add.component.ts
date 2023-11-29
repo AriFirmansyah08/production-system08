@@ -93,13 +93,6 @@ export class AddComponent implements OnInit {
     }
   }
 
-  onUploadImgAction(event: DropzoneEvent) {
-    this.dropzoneResponse = event[1];
-    if (this.dropzoneResponse !== undefined) {
-      this.fileName = this.dropzoneResponse.filename
-      this.img_action.push(this.fileName)
-    }
-  }
   
   onSubmit() {
     // Ambil nilai dari textarea dan simpan dalam variabel
@@ -107,7 +100,6 @@ export class AddComponent implements OnInit {
     const cause = document.getElementById('causeInput') as HTMLTextAreaElement;
     const capa_currection = document.getElementById('ca_pationInput') as HTMLTextAreaElement;
     const capa_currective = document.getElementById('ca_pativeInput') as HTMLTextAreaElement;
-    const action = document.getElementById('action') as HTMLTextAreaElement;
     // const currentDate = new Date();
   
     // Ambil nilai dari formSection
@@ -120,12 +112,10 @@ export class AddComponent implements OnInit {
       cause: cause.value,
       capa_currection: capa_currection.value,
       capa_currective: capa_currective.value,
-      action: action.value,
       img_problem: this.img_problem.join(','),
       img_cause: this.img_cause.join(','),
       img_capa_currection: this.img_capa_currection.join(','),
       img_capa_currective: this.img_capa_currective.join(','),
-      img_action: this.img_action.join(','),
       section: sectionValue,
       start_time: startTimeValue,
       end_time: endTimeValue,
@@ -140,7 +130,6 @@ export class AddComponent implements OnInit {
           cause.value = '';
           capa_currection.value = '';
           capa_currective.value = '';
-          action.value = '';
         } else {
           console.error('Gagal menyimpan data ke database', res);
         }

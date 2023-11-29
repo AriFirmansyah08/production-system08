@@ -45,7 +45,6 @@ export class DetailComponent implements OnInit {
         this.data.img_cause = this.data.img_cause.split(',');
         this.data.img_capa_currection = this.data.img_capa_currection.split(',');
         this.data.img_capa_currective = this.data.img_capa_currective.split(',');
-        this.data.img_action = this.data.img_action.split(',');
         this.calculateRecordTime();
       }, error => {
         console.error('Error:', error);

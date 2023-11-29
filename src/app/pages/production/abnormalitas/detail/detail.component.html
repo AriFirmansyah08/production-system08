@@ -142,32 +142,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive print-page">
-                            <table class="table table-borderless text-center table-nowrap align-middle mb-0">
-                                <thead class="header3 print-page">
-                                    <tr class="table-active">
-                                        <th class="text-center" scope="col col-6"> ACTION </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-start">
-                                            <span class="fw-medium">{{data.action}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex flex-wrap justify-content-between">
-                                                <div *ngFor="let item of data.img_action; let i = index">
-                                                    <img class="square-image img-fluid text-center" [src]="imageUrl + item"
-                                                        alt="Not Found IMG To ID : {{ i + 1 }}" />
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                         <div class="hstack gap-2 justify-content-end d-print-none mt-4">
                             <a href="javascript:window.print()" class="btn btn-success"><i
                                     class="ri-printer-line align-bottom me-1" onclick="window.print()"></i> Print</a>

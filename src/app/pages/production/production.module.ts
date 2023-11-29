@@ -88,8 +88,6 @@ import { UsersComponent } from './users/users.component';
     DatePipe,
     SimplebarAngularModule,
     SharedModule,
-
-    
   ],
   providers: [
     DatePipe,

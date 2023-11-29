@@ -343,4 +343,76 @@ export class ApiService {
     );
   }
 
+    //Planning Montly Report
+    getAllPlanning() {
+      return this.httpClient.get<any>
+      (environment.API_URL + 'master/planning', 
+      this.httpOptions())
+    }
+  
+    insertDataPlanning(data: any) {
+      return this.httpClient.post<any>
+      (environment.API_URL + `master/planning`, {form_data : data}, 
+      this.httpOptions())
+    }
+  
+    getByIdPlanning(id: number){
+      return this.httpClient.get<any>
+      (environment.API_URL + `master/planning/${id}`, 
+      this.httpOptions())
+    }
+
+    updatePlanning(id: number, data: any) {
+      return this.httpClient.put<any>(
+        environment.API_URL + 'master/planning/'+id,
+        { form_data: data },
+        this.httpOptions()
+      );
+    }
+
+  //Pending Job Montly Report
+    getAllPendingJob() {
+      return this.httpClient.get<any>
+      (environment.API_URL + 'master/pending', 
+      this.httpOptions())
+    }
+
+    insertDataPendingJob(data: any) {
+      return this.httpClient.post<any>
+      (environment.API_URL + `master/pending`, {form_data : data}, 
+      this.httpOptions())
+    }
+
+    getByIdPendingJob(id: number){
+      return this.httpClient.get<any>
+      (environment.API_URL + `master/pending/${id}`, 
+      this.httpOptions())
+    }
+
+    updatePending(id: number, data: any) {
+      return this.httpClient.put<any>(
+        environment.API_URL + 'master/pending/'+id,
+        { form_data: data },
+        this.httpOptions()
+      );
+    }
+
+    //Pending Job Montly Report
+    getAllResume() {
+      return this.httpClient.get<any>
+      (environment.API_URL + 'master/resume', 
+      this.httpOptions())
+    }
+
+    insertDataResume(data: any) {
+      return this.httpClient.post<any>
+      (environment.API_URL + `master/resume`, {form_data : data}, 
+      this.httpOptions())
+    }
+
+    getByIdResume(id: number){
+      return this.httpClient.get<any>
+      (environment.API_URL + `master/resume/${id}`, 
+      this.httpOptions())
+    }
 }

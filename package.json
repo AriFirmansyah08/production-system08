@@ -38,6 +38,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
+    "@techiediaries/ngx-qrcode": "^9.1.0",
     "@thisissoon/angular-inviewport": "^4.2.2",
     "@thisissoon/angular-scrollspy": "^2.2.0",
     "@types/date-fns": "^2.6.0",

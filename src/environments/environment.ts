@@ -33,10 +33,12 @@ export const environment= {
     image: 'master/image/',
     Image_abnormal: 'master/image_abnormal/',
     Image_user: 'master/image_user/',
+    Image_resume: 'master/image_resume/',
 
     getImage: 'image/',
     getImageAbnormal: 'image/abnormal/',
     getImageUser: 'image/user/',
+    getImageResume: 'image/resume/',
     refreshToken: 'update-token',
 
   //API daily Report

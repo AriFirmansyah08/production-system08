@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Component pages
 import { DashboardComponent } from "./dashboards/dashboard/dashboard.component";
+import { KartuStockComponent } from './kartu-stock/kartu-stock.component';
 
 const routes: Routes = [
     {
         path: "",
         component: DashboardComponent
+    },
+    {
+      path: "kartustock",
+      component: KartuStockComponent
     },
     {
       path: '', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule)
