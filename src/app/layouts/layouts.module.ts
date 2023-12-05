@@ -1,8 +1,8 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbNavModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { LanguageService } from '../core/services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +18,9 @@ import { HorizontalComponent } from './horizontal/horizontal.component';
 import { HorizontalTopbarComponent } from './horizontal-topbar/horizontal-topbar.component';
 import { TwoColumnComponent } from './two-column/two-column.component';
 import { TwoColumnSidebarComponent } from './two-column-sidebar/two-column-sidebar.component';
+
+import lottie from 'lottie-web';
+import { defineElement } from 'lord-icon-element';
 
 @NgModule({
   declarations: [
@@ -39,10 +42,16 @@ import { TwoColumnSidebarComponent } from './two-column-sidebar/two-column-sideb
     NgbNavModule,
     SimplebarAngularModule,
     TranslateModule,
+    NgbToastModule
+    
   ],
   providers: [LanguageService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LayoutsModule {
+  constructor() {
+    defineElement(lottie.loadAnimation);
+  }
   static forRoot(layoutType: string): ModuleWithProviders<LayoutsModule> {
     return {
       ngModule: LayoutsModule,
@@ -52,9 +61,3 @@ export class LayoutsModule {
     };
   }
 }
-
-// export class LayoutsModule {
-//   static forRoot(arg0: { layoutType: string; }): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
-//     throw new Error('Method not implemented.');
-//   }
-// }

@@ -24,7 +24,6 @@ import { LayoutCategoryComponent } from './layout-category.component';
   ],
   imports: [
     CommonModule,
-    CommonModule,
     RouterModule,
     NgbDropdownModule,
     NgbNavModule,

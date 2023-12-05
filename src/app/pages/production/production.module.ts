@@ -88,6 +88,7 @@ import { UsersComponent } from './users/users.component';
     DatePipe,
     SimplebarAngularModule,
     SharedModule,
+    NgbPaginationModule
   ],
   providers: [
     DatePipe,

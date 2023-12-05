@@ -6,7 +6,7 @@ import { ExtrapagesRoutingModule } from './extraspages-routing.module';
 import { GatewayComponent } from './gateway/gateway.component';
 import { SubGatewayComponent } from './sub-gateway/sub-gateway.component';
 import { LayoutsModule } from '../layouts/layouts.module';
-import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbNavModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimplebarAngularModule } from 'simplebar-angular';
 
 
@@ -24,6 +24,7 @@ import { SimplebarAngularModule } from 'simplebar-angular';
     NgbDropdownModule,
     NgbNavModule,
     SimplebarAngularModule,
+    NgbToastModule
   ]
 
 })

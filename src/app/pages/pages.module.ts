@@ -27,12 +27,14 @@ import { ToastsContainer } from './dashboards/dashboard/toasts-container.compone
 import { ProductionModule } from './production/production.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { KartuStockComponent } from './kartu-stock/kartu-stock.component';
+import { KartuStockBackupComponent } from './kartu-stock-backup/kartu-stock-backup.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ToastsContainer,
     KartuStockComponent,
+    KartuStockBackupComponent,
   ],
   imports: [
     CommonModule,

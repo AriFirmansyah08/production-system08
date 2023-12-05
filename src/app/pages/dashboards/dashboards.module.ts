@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbToastModule, NgbTypeaheadModule, NgbPaginationModule, NgbAccordionModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +28,10 @@ import { DashboardProdComponent } from './dashboard-prod/dashboard-prod.componen
 import { DashboardMaintComponent } from './dashboard-maint/dashboard-maint.component';
 import { BackupComponent } from './backup/backup.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import lottie from 'lottie-web';
+import { defineElement } from 'lord-icon-element';
+import { LightboxModule } from 'ngx-lightbox';
 
 
 @NgModule({
@@ -57,6 +61,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     NgbPaginationModule,
+    LightboxModule,
 
     NgbAccordionModule,
     NgbTooltipModule,
@@ -64,6 +69,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     FlatpickrModule,
     SharedModule,
-  ]
+    Ng2SearchPipeModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DashboardsModule { }
+export class DashboardsModule {
+  constructor() {
+    defineElement(lottie.loadAnimation);
+  }
+ }

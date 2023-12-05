@@ -8,31 +8,23 @@ export const MENU: MenuItem[] = [
     label: 'MENUITEMS.MENU.TEXT',
     isTitle: true,
     category : 'can',
-    subCategory : 'maintenance'
-  },
+    subCategory : 'maintenance',
+    },
   //end Menu
 
   {
-    id: 1,
+    id: 2,
     label: 'MENUITEMS.MENU.TEXT',
     isTitle: true,
     category : 'can',
     subCategory : 'production'
   },
-  {
-    id: 2,
-    label: 'MENUITEMS.DASHBOARD.TEXT',
-    icon: 'ri-home-8-line',
-    link: "/dashboard-prod",
-    category: 'can',
-    subCategory: 'production'
-  },
 
   {
-    id: 2,
-    label: 'Dashboard Backup',
+    id: 3,
+    label: 'MENUITEMS.DASHBOARD.TEXT',
     icon: 'ri-home-8-line',
-    link: "/dashboard-backup",
+    link: '/dashboard-prod',
     category: 'can',
     subCategory: 'production'
   },

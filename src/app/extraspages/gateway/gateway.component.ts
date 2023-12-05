@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 // import { category } from 'src/app/pages/apps/calendar/data';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
-import { LAYOUT_HORIZONTAL } from 'src/app/layouts/layout.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from './toast-service'; 
 
 
 
@@ -18,11 +19,21 @@ export class GatewayComponent{
 
   userData: any;
 
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    public toastService: ToastService,) {}
 
+  // ngOnInit(): void {
+  //   this.userData = this.tokenStorageService.getUser();
+  // }
   ngOnInit(): void {
     this.userData = this.tokenStorageService.getUser();
+    const category = sessionStorage.getItem('category');
+    if (!category) {
+      this.toastService.show('Session Anda Kosong', { classname: 'bg-primary text-center text-white', delay: 10000 });
+    }
   }
+  
   
   onCANClick(){
       sessionStorage.setItem("category", "can")
@@ -30,6 +41,8 @@ export class GatewayComponent{
 
   onPETClick(){
       sessionStorage.setItem("category", "pet")
+      
+      
   }
 
   onAppClick(app: any) {
@@ -39,12 +52,7 @@ export class GatewayComponent{
       } else if (app.category === 'can') {
         sessionStorage.setItem("category", "pet");
       }
-      // console.log (category)
   }
-
-  // logout() {
-  //   this.AuthenticationService.logout();
-  //   this.router.navigate(['/auth/login']);
-  // }
+  
 
 }

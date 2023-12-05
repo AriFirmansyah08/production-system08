@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { EventService } from '../core/services/event.service';
 import {
-  LAYOUT_VERTICAL, LAYOUT_HORIZONTAL, LAYOUT_TWOCOLUMN, LAYOUT_MODE, LAYOUT_WIDTH,
-  LAYOUT_POSITION, SIDEBAR_SIZE, SIDEBAR_COLOR, TOPBAR, LAYOUT_SEMIBOX
+  LAYOUT_VERTICAL, LAYOUT_HORIZONTAL, LAYOUT_TWOCOLUMN, LAYOUT_SEMIBOX
 } from './layout.model';
 
 @Component({

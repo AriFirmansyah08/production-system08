@@ -16,12 +16,13 @@ export class AddComponent implements OnInit {
 
   @ViewChild(DropzoneComponent) dropzone!: DropzoneComponent;
   formSection: FormGroup;
+  
   breadCrumbItems!: Array<{}>;
-  cause: any;
-  ca_pa:any;
-  problem: any;
-  postData:any;
-  fileName: any;
+  cause: any = [];
+  ca_pa:any = [];
+  problem: any = [];
+  postData:any = [];
+  fileName: any =[];
   img_problem : any = [];
   img_cause: any = [];
   img_capa_currection:any = []
@@ -48,12 +49,15 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMachine()
-    this.dropzone.config = this.dropzoneConfig;
     this.breadCrumbItems = [
       { label: 'Production', link: '/dashboard-prod' },
       { label: 'Abnormal', link: '/production/abnormal'},
       { label: 'Add', active: true }
     ];
+  }
+
+  ngAfterViewInit(): void {
+    this.dropzone.config = this.dropzoneConfig;
   }
 
   dropzoneConfig: DropzoneConfigInterface = {

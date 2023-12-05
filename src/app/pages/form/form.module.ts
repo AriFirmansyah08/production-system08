@@ -32,18 +32,7 @@ import lottie from 'lottie-web';
 // Component pages
 import { FormRoutingModule } from './form-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { BasicComponent } from './basic/basic.component';
-import { SelectComponent } from './select/select.component';
-import { CheckboxsRadiosComponent } from './checkboxs-radios/checkboxs-radios.component';
-import { PickersComponent } from './pickers/pickers.component';
-import { MasksComponent } from './masks/masks.component';
-import { AdvancedComponent } from './advanced/advanced.component';
-import { RangeSlidersComponent } from './range-sliders/range-sliders.component';
-import { ValidationComponent } from './validation/validation.component';
-import { WizardComponent } from './wizard/wizard.component';
-import { EditorsComponent } from './editors/editors.component';
-import { FileUploadsComponent } from './file-uploads/file-uploads.component';
-import { LayoutsComponent } from './layouts/layouts.component';
+
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: 'https://httpbin.org/post',
@@ -53,18 +42,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
   declarations: [
-    BasicComponent,
-    SelectComponent,
-    CheckboxsRadiosComponent,
-    PickersComponent,
-    MasksComponent,
-    AdvancedComponent,
-    RangeSlidersComponent,
-    ValidationComponent,
-    WizardComponent,
-    EditorsComponent,
-    FileUploadsComponent,
-    LayoutsComponent
   ],
   imports: [
     CommonModule,

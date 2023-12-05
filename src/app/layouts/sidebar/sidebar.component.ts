@@ -5,6 +5,7 @@ import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -19,59 +20,71 @@ export class SidebarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
   role_id: any;
   userData: any;
+  placementSec = true;
+  placement = true;
   
 
   constructor(
     private router: Router, 
     public translate: TranslateService,
-    private AuthenticationService: AuthenticationService) {
+    private AuthenticationService: AuthenticationService,) {
     translate.setDefaultLang('en');
   }
 
 
+  // ngOnInit(): void {
+  //   const category = sessionStorage.getItem('category');
+  //   const subCategory = sessionStorage.getItem('subCategory');
+  //   this.userData = this.AuthenticationService.getUserData();
+  //   if (this.userData && this.userData.role_id === 1) {
+  //     this.menuItems = MENU.filter((x: any) => 
+  //       x.category === category && 
+  //       x.subCategory === subCategory
+  //     );
+  //   } else {
+  //     this.menuItems = MENU.filter((x: any) => 
+  //       x.category === category && 
+  //       x.subCategory === subCategory && 
+  //       (x.role_id === undefined || x.role_id === null)
+  //     );
+  //   }
+  //   console.log(this.menuItems);
+  // }
   ngOnInit(): void {
-    // Menu Items
     const category = sessionStorage.getItem('category');
     const subCategory = sessionStorage.getItem('subCategory');
-    
-    // Mengakses nilai role_id dari userData
-    this.userData = this.AuthenticationService.getUserData();
-    
-    // Menyaring item-menu berdasarkan category, subCategory, dan role_id
-    if (this.userData && this.userData.role_id === 1) {
-      // Jika role_id === 1, munculkan semua item-menu
-      this.menuItems = MENU.filter((x: any) => 
-        x.category === category && 
-        x.subCategory === subCategory
-      );
-    } else {
-      // Jika role_id bukan 1, hanya munculkan item-menu yang tidak memiliki role_id
-      this.menuItems = MENU.filter((x: any) => 
-        x.category === category && 
-        x.subCategory === subCategory && 
-        (x.role_id === undefined || x.role_id === null)
-      );
-    }
-  
-    // Mengakses nilai role_id dari userData
-    if (this.userData) {
-      const userRoleId = this.userData.role_id;
-      console.log('Role ID:', userRoleId);
-    }
-  
-    console.log('sidebar', this.menuItems);
-    console.log('role_id:', this.userData ? this.userData.role_id : null);
-    console.log('category:', category);
-    console.log('subCategory:', subCategory);
-    console.log('MENU:', MENU);
-  }
-  
-  
-  
 
-  /***
-   * Activate droup down set
-   */
+    if (category !== null && subCategory !== null) {
+      this.userData = this.AuthenticationService.getUserData();
+
+      if (this.userData && this.userData.role_id === 1) {
+        this.menuItems = MENU.filter((x: any) => 
+          x.category === category && 
+          x.subCategory === subCategory
+        );
+      } else {
+        this.menuItems = MENU.filter((x: any) => 
+          x.category === category && 
+          x.subCategory === subCategory && 
+          (x.role_id === undefined || x.role_id === null)
+        );
+      }
+
+      console.log(this.menuItems);
+
+      if (this.menuItems.length === 0) {
+        
+        this.router.navigate(['/pages/gateway']);
+      }
+    } else {
+      console.error('category or subCategory is missing in sessionStorage.');
+      
+      this.router.navigate(['/pages/gateway']);
+      
+    }
+  }
+
+
   ngAfterViewInit() {
     this.initActiveMenu();
   }
